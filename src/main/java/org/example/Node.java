@@ -2,19 +2,20 @@ package org.example;
 
 public class Node {
 
-    private Integer data;
+    private Animal data;
     private Node left;
     private Node rigt;
+    private Node parent;
 
-    public Node(Integer dato, Node left, Node right){
+    public Node(Animal dato, Node left, Node right, Node parent){
         this.data = dato;
     }
 
-    public Integer getData() {
+    public Animal getData() {
         return data;
     }
 
-    public void setData(Integer data) {
+    public void setData(Animal data) {
         this.data = data;
     }
 
@@ -32,6 +33,14 @@ public class Node {
 
     public void setRigt(Node rigt) {
         this.rigt = rigt;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 
     public boolean hasChildren(){
