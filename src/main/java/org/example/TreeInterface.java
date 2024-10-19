@@ -8,6 +8,7 @@ public interface TreeInterface {
     void posorder();
     void poda();
     void cleanTree();
+    void printTreeFormat();
     boolean isEmpty();
     void play();
     void playRecursive(Node root);

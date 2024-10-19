@@ -3,7 +3,6 @@ package org.example;
 public class Animal {
     private String nombre;
     private String caracteristica;
-
     private boolean isAnimal;
 
     public Animal(){}
@@ -45,5 +44,10 @@ public class Animal {
         }else{
             return caracteristica;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "\nNombre " + nombre + " caracteristica " + caracteristica;
     }
 }

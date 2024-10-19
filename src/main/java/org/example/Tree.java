@@ -14,21 +14,77 @@ public class Tree implements TreeInterface {
         }
     }
 
-    public void playRecursive(Node root){
-        // Mostramos un cuadro de diálogo con botones de opción
-        int respuesta = JOptionPane.showConfirmDialog(null,
-                "El animal que está pensando : " + root.getData().preguntar() + "?",
+    public int makeQuestion(String pregunta, String dato){
+        return JOptionPane.showConfirmDialog(null,
+                pregunta + dato + "?",
                 "Pregunta",
                 JOptionPane.YES_NO_OPTION);
+    }
+
+    public int makeQuestion(String pregunta){
+        return JOptionPane.showConfirmDialog(null,
+                pregunta + "?",
+                "Pregunta",
+                JOptionPane.YES_NO_OPTION);
+    }
+
+    public void quieresJugarOtraVez(){
+        if(makeQuestion("Quieres jugar de nuevo")==JOptionPane.YES_OPTION){
+            play();
+        }
+    }
+
+    public void showMessage(String mensaje){
+        JOptionPane.showMessageDialog(null, mensaje, "Resultado", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showNewAnimalAdd(String animal, String caracteristica){
+        JOptionPane.showMessageDialog(null, "Nuevo animal: " + animal + "\nCaracterística: " + caracteristica,
+                "Nuevo animal añadido", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public boolean capturarDatosAnimal(String[] nombreAnimal, String[] caracteristicaAnimal) {
+        // Pedir el nombre del animal
+        nombreAnimal[0] = JOptionPane.showInputDialog(null, "Digite el nombre del animal:",
+                "Nuevo animal", JOptionPane.QUESTION_MESSAGE);
+
+        // Verificar si el nombre es válido
+        if (nombreAnimal[0] == null || nombreAnimal[0].trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false; // Retornamos false si los datos no son válidos
+        }
+
+        // Pedir la característica distintiva del animal
+        caracteristicaAnimal[0] = JOptionPane.showInputDialog(null, "Digite una característica distintiva del animal:",
+                "Nueva característica", JOptionPane.QUESTION_MESSAGE);
+
+        // Verificar si la característica es válida
+        if (caracteristicaAnimal[0] == null || caracteristicaAnimal[0].trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una característica válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true; // Retornamos true si los datos fueron capturados correctamente
+    }
+
+
+    public void playRecursive(Node root){
+        String[] nombreAnimal = new String[1];
+        String[] caracteristicaAnimal = new String[1];
+        // Mostramos un cuadro de diálogo con botones de opción
+        int respuesta = makeQuestion("El animal que esta pensando : ", root.getData().preguntar());
 
         if (respuesta == JOptionPane.YES_OPTION) {
             if(root.getData().isAnimal()){
-                JOptionPane.showMessageDialog(null, "¡El animal ya existe!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                showMessage("¡El animal ya existe!");
                 System.out.println("¡El animal ya existe!");
+                quieresJugarOtraVez();
+
             } else{
                 playRecursive(root.getRigt()); // si es si y no se trata de un animal
             }
-        } else { //si la respuesta es no
+
+        } else { //SI LA RESPUESTA ES NO
             System.out.println("¡Vamos a seguir buscando!");
             if(root.getLeft()!=null) {
                 playRecursive(root.getLeft());
@@ -37,148 +93,95 @@ public class Tree implements TreeInterface {
                 if (!root.getData().isAnimal()) {
 
                     System.out.println("Estamos debajo de una caracteristica solamente ingresamos");
-                    JOptionPane.showMessageDialog(null, "¡No hay informacion de este animal vamos a agregarla!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
-
-                    String nombreAnimal = JOptionPane.showInputDialog(null, "Digite el nombre del animal:",
-                            "Nuevo animal", JOptionPane.QUESTION_MESSAGE);
-
-                    // Si el usuario cancela o no introduce nada, nombreAnimal será null
-                    if (nombreAnimal != null && !nombreAnimal.trim().isEmpty()) {
-                        // Obtener la característica del nuevo animal
-                        String caracteristicaAnimal = JOptionPane.showInputDialog(null, "Digite una característica distintiva del animal:",
-                                "Nueva característica", JOptionPane.QUESTION_MESSAGE);
-
-                        if (caracteristicaAnimal != null && !caracteristicaAnimal.trim().isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Nuevo animal: " + nombreAnimal + "\nCaracterística: "
-                                    + caracteristicaAnimal, "Nuevo animal añadido", JOptionPane.INFORMATION_MESSAGE);
-                            Animal animal = new Animal(nombreAnimal, caracteristicaAnimal, true);
-                            Node animalNodo = new Node(animal,null,null, root,false);
-                            root.setLeft(animalNodo);// ingresamos ala izquieda o en el no de esa caracteristica - que tiene la izquierda vacia
-                            inorder();
-                            play();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Debe ingresar una característica válida.",
-                                    "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    showMessage("¡No hay informacion de este animal vamos a agregarla #1!");
+                    if (capturarDatosAnimal(nombreAnimal, caracteristicaAnimal)) {
+                        // Mostrar la información capturada
+                        showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
+                        // Crear un nuevo animal y nodo
+                        Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true);
+                        Node animalNodo = new Node(animal, null, null, root, false);
+                        root.setLeft(animalNodo); // Ingresar a la izquierda del nodo actual
+                        inorder();
+                        play();
                     }
                     //fin de captura de datos
 
+                }//FIN DEL PRIMER CASO
 
-                } else {// si soy animal y voy a ingresar abajo mio tengo que crear el nodo de caracteristica para el arbol
+                else {// si soy animal y voy a ingresar abajo mio tengo que crear el nodo de caracteristica para el arbol
                     //Si mi caracteristica no esta agregada entonces vengo de no y debo hacer el rearme #1
                     if (root.getParent().getData().getCaracteristica() != root.getData().getCaracteristica()) {
                         if (!root.getCaracteristicaAdded()){
-                            System.out.println("Hay que hacer switch ya que vamos a ingresar debajo de un animal #1");
 
-                        Animal carac_animal = new Animal("1", root.getData().getCaracteristica(), false);
-                        Node carac_nodo = new Node(carac_animal, null, null, root.getParent());
+                            System.out.println("Hay que hacer switch ya que vamos a ingresar debajo de un animal");
 
-                        root.getParent().setLeft(carac_nodo); //padre de ballena en este momento que era la caract que no cumple ballena //la cambiamos por mi caracteristica
-                        carac_nodo.setRigt(root); //como es mi caracteristica me voy a si
-                        root.setParent(carac_nodo); //mi padre ahora va ser esa caracteristica mia
+                            Animal carac_animal = new Animal("1", root.getData().getCaracteristica(), false);
+                            Node carac_nodo = new Node(carac_animal, null, null, root.getParent());
 
-                        JOptionPane.showMessageDialog(null, "¡No hay informacion de este animal vamos a agregarla!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
-                        String nombreAnimal = JOptionPane.showInputDialog(null, "Digite el nombre del animal:", "Nuevo animal", JOptionPane.QUESTION_MESSAGE);
-                        //decir que la caracteristica de root = por ejemplo ballena esta agregada
-                        root.setCaracteristicaAdded(true);
+                            root.getParent().setLeft(carac_nodo); //padre de ballena en este momento que era la caract que no cumple ballena //la cambiamos por mi caracteristica
+                            carac_nodo.setRigt(root); //como es mi caracteristica me voy a si
+                            root.setParent(carac_nodo); //mi padre ahora va ser esa caracteristica mia
+                            //decir que la caracteristica de root = por ejemplo ballena esta agregada
+                            root.setCaracteristicaAdded(true);
 
-                        // Si el usuario cancela o no introduce nada, nombreAnimal será null
-                        if (nombreAnimal != null && !nombreAnimal.trim().isEmpty()) {
-                            // Obtener la característica del nuevo animal
-                            String caracteristicaAnimal = JOptionPane.showInputDialog(null, "Digite una característica distintiva del animal:",
-                                    "Nueva característica", JOptionPane.QUESTION_MESSAGE);
+                            showMessage("¡No hay informacion de este animal vamos a agregarla! #2");
 
-                            if (caracteristicaAnimal != null && !caracteristicaAnimal.trim().isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Nuevo animal: " + nombreAnimal + "\nCaracterística: "
-                                        + caracteristicaAnimal, "Nuevo animal añadido", JOptionPane.INFORMATION_MESSAGE);
-                                Animal animal = new Animal(nombreAnimal, caracteristicaAnimal, true);
-                                Node nodeAnimal = new Node(animal, null, null, carac_nodo,false);
+                            if (capturarDatosAnimal(nombreAnimal, caracteristicaAnimal)) {
+                                // Mostrar la información capturada
+                                showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
+                                Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true);
+                                Node nodeAnimal = new Node(animal, null, null, carac_nodo, false);
                                 carac_nodo.setLeft(nodeAnimal);//pongo de no al animal nuevo que no le he agregado la caracteristica
                                 inorder();
                                 play();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Debe ingresar una característica válida.",
-                                        "Error", JOptionPane.ERROR_MESSAGE);
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }else{ //caso caracteristica agregada pero queda en la parte superior
-                            JOptionPane.showMessageDialog(null, "¡No hay informacion de este animal vamos a agregarla #3!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
 
-                            String nombreAnimal = JOptionPane.showInputDialog(null, "Digite el nombre del animal:",
-                                    "Nuevo animal", JOptionPane.QUESTION_MESSAGE);
-                            // Si el usuario cancela o no introduce nada, nombreAnimal será null
-                            if (nombreAnimal != null && !nombreAnimal.trim().isEmpty()) {
-                                // Obtener la característica del nuevo animal
-                                String caracteristicaAnimal = JOptionPane.showInputDialog(null, "Digite una característica distintiva del animal:",
-                                        "Nueva característica", JOptionPane.QUESTION_MESSAGE);
+                    }
+                        else { //caso caracteristica agregada pero queda en la parte superior
 
-                                if (caracteristicaAnimal != null && !caracteristicaAnimal.trim().isEmpty()) {
-                                    JOptionPane.showMessageDialog(null, "Nuevo animal: " + nombreAnimal + "\nCaracterística: "
-                                            + caracteristicaAnimal, "Nuevo animal añadido", JOptionPane.INFORMATION_MESSAGE);
-                                    Animal animal = new Animal(nombreAnimal, caracteristicaAnimal, true);
-                                    Animal animalCaracteristica = new Animal("",caracteristicaAnimal,false);
-
-                                    Node parent = root.getParent();
-                                    Node animalNodeCaracte = new Node(animalCaracteristica,null,null,parent);
-
-                                    parent.setLeft(animalNodeCaracte);
-                                    Node animalObj = new Node(animal,null,null, animalNodeCaracte, true);
-                                    animalNodeCaracte.setRigt(animalObj);
-                                    animalNodeCaracte.setLeft(root);
-                                    root.setParent(animalNodeCaracte);
-
-                                    //carac_nodo.setLeft(new Node(animal, null, null, carac_nodo));
-                                    inorder();
-                                    play();
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Debe ingresar una característica válida.",
-                                            "Error", JOptionPane.ERROR_MESSAGE);
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-                }else{ //caso de que mi caracteristica ya esta agregada y es mi padre - esta justo arriba
-
-
-                        JOptionPane.showMessageDialog(null, "¡No hay informacion de este animal vamos a agregarla #2!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
-
-                        String nombreAnimal = JOptionPane.showInputDialog(null, "Digite el nombre del animal:",
-                                "Nuevo animal", JOptionPane.QUESTION_MESSAGE);
-                        // Si el usuario cancela o no introduce nada, nombreAnimal será null
-                        if (nombreAnimal != null && !nombreAnimal.trim().isEmpty()) {
-                            // Obtener la característica del nuevo animal
-                            String caracteristicaAnimal = JOptionPane.showInputDialog(null, "Digite una característica distintiva del animal:",
-                                    "Nueva característica", JOptionPane.QUESTION_MESSAGE);
-
-                            if (caracteristicaAnimal != null && !caracteristicaAnimal.trim().isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Nuevo animal: " + nombreAnimal + "\nCaracterística: "
-                                        + caracteristicaAnimal, "Nuevo animal añadido", JOptionPane.INFORMATION_MESSAGE);
-                                Animal animal = new Animal(nombreAnimal, caracteristicaAnimal, true);
-                                Animal animalCaracteristica = new Animal("",caracteristicaAnimal,false);
+                            showMessage("¡No hay informacion de este animal vamos a agregarla #4!");
+                            if (capturarDatosAnimal(nombreAnimal, caracteristicaAnimal)) {
+                                // Mostrar la información capturada
+                                showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
+                                Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true);
+                                Animal animalCaracteristica = new Animal("",caracteristicaAnimal[0],false);
 
                                 Node parent = root.getParent();
                                 Node animalNodeCaracte = new Node(animalCaracteristica,null,null,parent);
-                                parent.setRigt(animalNodeCaracte);
+
+                                parent.setLeft(animalNodeCaracte);
                                 Node animalObj = new Node(animal,null,null, animalNodeCaracte, true);
                                 animalNodeCaracte.setRigt(animalObj);
                                 animalNodeCaracte.setLeft(root);
                                 root.setParent(animalNodeCaracte);
-
                                 //carac_nodo.setLeft(new Node(animal, null, null, carac_nodo));
                                 inorder();
                                 play();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Debe ingresar una característica válida.",
-                                        "Error", JOptionPane.ERROR_MESSAGE);
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Error", JOptionPane.ERROR_MESSAGE);
+
                         }
+                   }
+                    else { //caso de que mi caracteristica ya esta agregada y es mi padre - esta justo arriba
+
+                        showMessage("¡No hay informacion de este animal vamos a agregarla #3!");
+
+                        if (capturarDatosAnimal(nombreAnimal, caracteristicaAnimal)) {
+                            // Mostrar la información capturada
+                            showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
+                            Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true);
+                            Animal animalCaracteristica = new Animal("",caracteristicaAnimal[0],false);
+
+                            Node parent = root.getParent();
+                            Node animalNodeCaracte = new Node(animalCaracteristica,null,null,parent);
+                            parent.setRigt(animalNodeCaracte);
+                            Node animalObj = new Node(animal,null,null, animalNodeCaracte, true);
+                            animalNodeCaracte.setRigt(animalObj);
+                            animalNodeCaracte.setLeft(root);
+                            root.setParent(animalNodeCaracte);
+                            inorder();
+                            play();
+                        }
+
                     }
                 }
             }
@@ -261,7 +264,7 @@ public class Tree implements TreeInterface {
 
     private void preOrderRecursive(Node root) {
         if (root != null) {
-            System.out.println(root.getData().toString());
+            System.out.println(root.getData().preguntar());
             preOrderRecursive(root.getLeft());
             preOrderRecursive(root.getRigt());
         }
@@ -279,8 +282,24 @@ public class Tree implements TreeInterface {
         if (root != null) {
             posOrderRecursive(root.getLeft());
             posOrderRecursive(root.getRigt());
-            System.out.println(root.getData().toString());
+            System.out.println(root.getData().preguntar());
         }
+    }
+
+
+    @Override
+    public void printTreeFormat(){
+        if (base != null) {
+            System.out.println(printTreeFormatRecursive(base));
+        }
+        System.out.println("Recorrido tree format terminado");
+    }
+
+    private String printTreeFormatRecursive(Node root){
+        if (root != null) {
+            return printTreeFormatRecursive(root.getLeft()) + "   " + root.getData().preguntar() + "   " + printTreeFormatRecursive(root.getRigt());
+        }
+        return "NULL";
     }
 
     @Override
