@@ -5,10 +5,27 @@ public class Node {
     private Animal data;
     private Node left;
     private Node rigt;
+    private Boolean caracteristicaAdded;
     private Node parent;
 
-    public Node(Animal dato, Node left, Node right, Node parent){
+    public Node(Animal dato, Node left, Node right, Node parent, Boolean caracteristicaAdded){
+
         this.data = dato;
+        this.left = left;
+        this.rigt = right;
+        this.parent = parent;
+        this.caracteristicaAdded = caracteristicaAdded;
+
+    }
+
+    public Node(Animal dato, Node left, Node right, Node parent){
+
+        this.data = dato;
+        this.left = left;
+        this.rigt = right;
+        this.parent = parent;
+
+
     }
 
     public Animal getData() {
@@ -46,4 +63,8 @@ public class Node {
     public boolean hasChildren(){
         return left != null || rigt != null;
     }
+
+    public Boolean getCaracteristicaAdded() {return caracteristicaAdded;}
+
+    public void setCaracteristicaAdded(Boolean caracteristicaAdded) {this.caracteristicaAdded = caracteristicaAdded;}
 }

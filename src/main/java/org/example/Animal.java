@@ -10,11 +10,9 @@ public class Animal {
 
     public Animal(String nombre, String caracteristica, boolean animal) {
         isAnimal = animal;
-        if (isAnimal) {
-            this.nombre = nombre;
-        } else {
-            this.caracteristica = caracteristica;
-        }
+        this.nombre = nombre;
+        this.caracteristica = caracteristica;
+
     }
 
     public boolean isAnimal() {
