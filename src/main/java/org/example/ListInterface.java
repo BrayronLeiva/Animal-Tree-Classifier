@@ -2,9 +2,9 @@ package org.example;
 
 public interface ListInterface<T> {
 
-    void addFront(NodeList<T> nodeList);
+    void addFront(T obj);
 
-    void addEnd(NodeList<T> nodeList);
+    void addEnd(T obj);
 
     NodeList<T> getDummy();
 
@@ -16,4 +16,6 @@ public interface ListInterface<T> {
     void setBack(NodeList<T> back);
 
     void printList();
+    String getStreamList();
+
 }

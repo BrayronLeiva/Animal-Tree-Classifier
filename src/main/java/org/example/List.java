@@ -12,7 +12,8 @@ public class List<T> implements ListInterface<T> {
         back.setPrevious(dummy);
     }
     @Override
-    public void addFront(NodeList<T> nodeList){
+    public void addFront(T obj){
+        NodeList<T> nodeList = new NodeList<>(null,null, obj);
         NodeList<T> previous_aux = dummy.getNext();
         dummy.setNext(nodeList);
         nodeList.setPrevious(dummy);
@@ -21,7 +22,7 @@ public class List<T> implements ListInterface<T> {
 
     }
     @Override
-    public void addEnd(NodeList<T> nodeList){
+    public void addEnd(T obj){
 
     }
     // Getter y setter para dummy
@@ -57,6 +58,25 @@ public class List<T> implements ListInterface<T> {
             System.out.println(root.getData().toString());
             printListRecursive(root.getNext());
         }
+
+    }
+
+    public String getStreamList(){
+
+        if(dummy.getNext()!=back) {
+            return getStreamListRecursive(dummy.getNext());
+        }
+        return "";
+    }
+
+    public String getStreamListRecursive(NodeList<T> root) {
+
+        if(root.getData()!=null) { //por si entra back
+            System.out.println("Agregando: " + root.getData().toString());
+            return root.getData().toString() + getStreamListRecursive(root.getNext());
+
+        }
+        return "";
 
     }
 }

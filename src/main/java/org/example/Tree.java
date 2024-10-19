@@ -1,7 +1,7 @@
 package org.example;
 import javax.swing.JOptionPane;
 public class Tree implements TreeInterface {
-    private Node base;
+    private NodeTree base;
 
     public Tree() {
     }
@@ -68,7 +68,7 @@ public class Tree implements TreeInterface {
     }
 
 
-    public void playRecursive(Node root){
+    public void playRecursive(NodeTree root){
         String[] nombreAnimal = new String[1];
         String[] caracteristicaAnimal = new String[1];
         // Mostramos un cuadro de diálogo con botones de opción
@@ -99,7 +99,7 @@ public class Tree implements TreeInterface {
                         showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
                         // Crear un nuevo animal y nodo
                         Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true);
-                        Node animalNodo = new Node(animal, null, null, root, false);
+                        NodeTree animalNodo = new NodeTree(animal, null, null, root, false);
                         root.setLeft(animalNodo); // Ingresar a la izquierda del nodo actual
                         inorder();
                         play();
@@ -116,7 +116,7 @@ public class Tree implements TreeInterface {
                             System.out.println("Hay que hacer switch ya que vamos a ingresar debajo de un animal");
 
                             Animal carac_animal = new Animal("1", root.getData().getCaracteristica(), false);
-                            Node carac_nodo = new Node(carac_animal, null, null, root.getParent());
+                            NodeTree carac_nodo = new NodeTree(carac_animal, null, null, root.getParent());
 
                             root.getParent().setLeft(carac_nodo); //padre de ballena en este momento que era la caract que no cumple ballena //la cambiamos por mi caracteristica
                             carac_nodo.setRigt(root); //como es mi caracteristica me voy a si
@@ -130,8 +130,8 @@ public class Tree implements TreeInterface {
                                 // Mostrar la información capturada
                                 showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
                                 Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true);
-                                Node nodeAnimal = new Node(animal, null, null, carac_nodo, false);
-                                carac_nodo.setLeft(nodeAnimal);//pongo de no al animal nuevo que no le he agregado la caracteristica
+                                NodeTree nodeTreeAnimal = new NodeTree(animal, null, null, carac_nodo, false);
+                                carac_nodo.setLeft(nodeTreeAnimal);//pongo de no al animal nuevo que no le he agregado la caracteristica
                                 inorder();
                                 play();
                             }
@@ -146,14 +146,14 @@ public class Tree implements TreeInterface {
                                 Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true);
                                 Animal animalCaracteristica = new Animal("",caracteristicaAnimal[0],false);
 
-                                Node parent = root.getParent();
-                                Node animalNodeCaracte = new Node(animalCaracteristica,null,null,parent);
+                                NodeTree parent = root.getParent();
+                                NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null,parent);
 
-                                parent.setLeft(animalNodeCaracte);
-                                Node animalObj = new Node(animal,null,null, animalNodeCaracte, true);
-                                animalNodeCaracte.setRigt(animalObj);
-                                animalNodeCaracte.setLeft(root);
-                                root.setParent(animalNodeCaracte);
+                                parent.setLeft(animalNodeCaracteTree);
+                                NodeTree animalObj = new NodeTree(animal,null,null, animalNodeCaracteTree, true);
+                                animalNodeCaracteTree.setRigt(animalObj);
+                                animalNodeCaracteTree.setLeft(root);
+                                root.setParent(animalNodeCaracteTree);
                                 //carac_nodo.setLeft(new Node(animal, null, null, carac_nodo));
                                 inorder();
                                 play();
@@ -171,13 +171,13 @@ public class Tree implements TreeInterface {
                             Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true);
                             Animal animalCaracteristica = new Animal("",caracteristicaAnimal[0],false);
 
-                            Node parent = root.getParent();
-                            Node animalNodeCaracte = new Node(animalCaracteristica,null,null,parent);
-                            parent.setRigt(animalNodeCaracte);
-                            Node animalObj = new Node(animal,null,null, animalNodeCaracte, true);
-                            animalNodeCaracte.setRigt(animalObj);
-                            animalNodeCaracte.setLeft(root);
-                            root.setParent(animalNodeCaracte);
+                            NodeTree parent = root.getParent();
+                            NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null,parent);
+                            parent.setRigt(animalNodeCaracteTree);
+                            NodeTree animalObj = new NodeTree(animal,null,null, animalNodeCaracteTree, true);
+                            animalNodeCaracteTree.setRigt(animalObj);
+                            animalNodeCaracteTree.setLeft(root);
+                            root.setParent(animalNodeCaracteTree);
                             inorder();
                             play();
                         }
@@ -192,7 +192,7 @@ public class Tree implements TreeInterface {
     @Override
     public void insert(Animal data) {
         if(isEmpty()){
-            base = new Node(data, null, null,null);
+            base = new NodeTree(data, null, null,null);
             return;
         }
         insertRecursive(base, data);
@@ -200,27 +200,27 @@ public class Tree implements TreeInterface {
 
     public void loadTree(){
         Animal data = new Animal("1","ave",false);
-        base =  new Node(data, null, null, null);
+        base =  new NodeTree(data, null, null, null);
 
         Animal data1 = new Animal("","reptil",false);
-        Node reptil = new Node(data1,null,null, base);
+        NodeTree reptil = new NodeTree(data1,null,null, base);
         base.setLeft(reptil);
         Animal data2 = new Animal("Lagarto","1",true);
-        Node lagarto = new Node(data2,null,null, reptil, true);
+        NodeTree lagarto = new NodeTree(data2,null,null, reptil, true);
         reptil.setRigt(lagarto);
         //regresamos a base
         Animal data3 = new Animal("1","cacarea", false);
-        Node cacarea = new Node(data3,null,null, base);
+        NodeTree cacarea = new NodeTree(data3,null,null, base);
         base.setRigt(cacarea);
         Animal data4 = new Animal("aguila","1", true);
-        Node aguila = new Node(data4,null,null,cacarea, true);
+        NodeTree aguila = new NodeTree(data4,null,null,cacarea, true);
         cacarea.setLeft(aguila);
         Animal data5 = new Animal("gallina","1",true);
-        Node gallina = new Node(data5,null,null,cacarea, true);
+        NodeTree gallina = new NodeTree(data5,null,null,cacarea, true);
         cacarea.setRigt(gallina);
     }
 
-    private void insertRecursive(Node base, Animal data) {
+    private void insertRecursive(NodeTree base, Animal data) {
         /*
         if (data < base.getData()) {
             if (base.getLeft() == null) {
@@ -246,7 +246,7 @@ public class Tree implements TreeInterface {
         System.out.println("Recorrido inorder terminado");
     }
 
-    private void inOrderRecursive(Node root) {
+    private void inOrderRecursive(NodeTree root) {
         if (root != null) {
             inOrderRecursive(root.getLeft());
             System.out.println(root.getData().preguntar());
@@ -262,7 +262,7 @@ public class Tree implements TreeInterface {
         System.out.println("Recorrido preorder terminado");
     }
 
-    private void preOrderRecursive(Node root) {
+    private void preOrderRecursive(NodeTree root) {
         if (root != null) {
             System.out.println(root.getData().preguntar());
             preOrderRecursive(root.getLeft());
@@ -278,11 +278,32 @@ public class Tree implements TreeInterface {
         System.out.println("Recorrido posorder terminado");
     }
 
-    private void posOrderRecursive(Node root) {
+    private void posOrderRecursive(NodeTree root) {
         if (root != null) {
             posOrderRecursive(root.getLeft());
             posOrderRecursive(root.getRigt());
             System.out.println(root.getData().preguntar());
+        }
+    }
+
+    @Override
+    public List<Animal> convertTreeIntoList(){
+        List<Animal> animalList = new List<>();
+        if (base != null) {
+            convertTreeIntoListRecursive(base,animalList);
+        }
+        System.out.println("Lista almacenada correctamente");
+        return animalList;
+    }
+
+    public void convertTreeIntoListRecursive(NodeTree root, List<Animal> animalList){
+        if (root != null) {
+            convertTreeIntoListRecursive(root.getLeft(),animalList);
+            convertTreeIntoListRecursive(root.getRigt(),animalList);
+            if(root.getData().isAnimal()) {
+                System.out.println("Agregadndo a: " + root.getData().preguntar());
+                animalList.addFront(root.getData());
+            }
         }
     }
 
@@ -295,36 +316,11 @@ public class Tree implements TreeInterface {
         System.out.println("Recorrido tree format terminado");
     }
 
-    private String printTreeFormatRecursive(Node root){
+    private String printTreeFormatRecursive(NodeTree root){
         if (root != null) {
             return printTreeFormatRecursive(root.getLeft()) + "   " + root.getData().preguntar() + "   " + printTreeFormatRecursive(root.getRigt());
         }
         return "NULL";
-    }
-
-    @Override
-    public void poda() {
-        if (base != null) {
-            podaRecursive(base);
-        }
-        System.out.println("Poda terminada");
-    }
-
-    private void podaRecursive(Node root) {
-        if (root != null) {
-            if (!root.getLeft().hasChildren()) {
-                System.out.println("Se eliminó " + root.getLeft().getData().toString());
-                root.setLeft(null);
-            } else {
-                podaRecursive(root.getLeft());
-            }
-            if (!root.getRigt().hasChildren()) {
-                System.out.println("Se eliminó " + root.getRigt().getData().toString());
-                root.setRigt(null);
-            } else {
-                podaRecursive(root.getRigt());
-            }
-        }
     }
 
 

@@ -6,10 +6,11 @@ public interface TreeInterface {
     void inorder();
     void preorder();
     void posorder();
-    void poda();
     void cleanTree();
     void printTreeFormat();
     boolean isEmpty();
     void play();
-    void playRecursive(Node root);
+    void playRecursive(NodeTree root);
+
+    List<Animal> convertTreeIntoList();
 }

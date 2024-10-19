@@ -1,14 +1,14 @@
 package org.example;
 
-public class Node {
+public class NodeTree {
 
     private Animal data;
-    private Node left;
-    private Node rigt;
+    private NodeTree left;
+    private NodeTree rigt;
     private Boolean caracteristicaAdded;
-    private Node parent;
+    private NodeTree parent;
 
-    public Node(Animal dato, Node left, Node right, Node parent, Boolean caracteristicaAdded){
+    public NodeTree(Animal dato, NodeTree left, NodeTree right, NodeTree parent, Boolean caracteristicaAdded){
 
         this.data = dato;
         this.left = left;
@@ -18,7 +18,7 @@ public class Node {
 
     }
 
-    public Node(Animal dato, Node left, Node right, Node parent){
+    public NodeTree(Animal dato, NodeTree left, NodeTree right, NodeTree parent){
 
         this.data = dato;
         this.left = left;
@@ -36,27 +36,27 @@ public class Node {
         this.data = data;
     }
 
-    public Node getLeft() {
+    public NodeTree getLeft() {
         return left;
     }
 
-    public void setLeft(Node left) {
+    public void setLeft(NodeTree left) {
         this.left = left;
     }
 
-    public Node getRigt() {
+    public NodeTree getRigt() {
         return rigt;
     }
 
-    public void setRigt(Node rigt) {
+    public void setRigt(NodeTree rigt) {
         this.rigt = rigt;
     }
 
-    public Node getParent() {
+    public NodeTree getParent() {
         return parent;
     }
 
-    public void setParent(Node parent) {
+    public void setParent(NodeTree parent) {
         this.parent = parent;
     }
 
