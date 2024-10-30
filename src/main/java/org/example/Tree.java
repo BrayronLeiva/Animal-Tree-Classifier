@@ -313,21 +313,19 @@ public class Tree implements TreeInterface {
     public Map<String, Contenedor<String>> convertTreeIntoHashMap(){
         Map<String, Contenedor<String>> hashMap = new HashMap<>();
         if (base != null) {
-            convertTreeIntoHashMapRecursive(listStructure.getDummy().getNext().getData(), hashMap, 0);
+            convertTreeIntoHashMapRecursive(listStructure.getDummy().getNext(), hashMap);
         }
         System.out.println("HashMap almacenado correctamente");
-        return null;
+        return hashMap;
     }
 
-    public void convertTreeIntoHashMapRecursive(NodeTree node, Map<String, Contenedor<String>> animalContenedor, Integer index){
-        if (node != null) {
-            NodeList<NodeTree> nodeList = this.listStructure.getNode(index);
-            NodeTree actual = nodeList.getData();
+    public void convertTreeIntoHashMapRecursive(NodeList<NodeTree> node, Map<String, Contenedor<String>> animalContenedor){
+        if (node != listStructure.getBack()) {
+            NodeTree actual = node.getData();
             //convertTreeIntoHashMapRecursive(root.getLeft(), animalContenedor);
             animalContenedor.put(actual.getData().getNombre(), fillAnimalCharacteristics(actual));
-            convertTreeIntoHashMapRecursive(nodeList.getNext().getData(), animalContenedor, index+1);
+            convertTreeIntoHashMapRecursive(node.getNext(), animalContenedor);
             //convertTreeIntoHashMapRecursive(root.getRigt(), animalContenedor);
-
         }
     }
 

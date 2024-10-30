@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Main {
 
-    private Map<String, Contenedor<String>> hashMap;
+    private static Map<String, Contenedor<String>> hashMap;
     public static void main(String[] args) {
         TreeInterface tree = new Tree();
         tree.loadTree();
@@ -14,10 +14,9 @@ public class Main {
         tree.play();
         Contenedor<Animal> animalContenedor;
         animalContenedor = tree.convertTreeIntoList();
+        hashMap = tree.convertTreeIntoHashMap();
+
         boolean continuar = true;
-
-
-
         while (continuar) {
             // Mostrar el menú de opciones
             String opcion = JOptionPane.showInputDialog(null,
@@ -70,7 +69,20 @@ public class Main {
     }
 
     private static void buscarElemento() {
+        // Pedir el nombre del animal
+        String nombreAnimal = JOptionPane.showInputDialog(null, "Digite el nombre del animal:",
+                "Nuevo animal", JOptionPane.QUESTION_MESSAGE);
 
+        // Verificar si el nombre es válido
+        if (nombreAnimal == null || nombreAnimal.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if(hashMap.containsKey(nombreAnimal)) {
+            JOptionPane.showMessageDialog(null, nombreAnimal + ": " + hashMap.get(nombreAnimal).getStreamListCaracteristicas());
+            System.out.println(hashMap.get(nombreAnimal).getStreamList());
+        }else{
+            JOptionPane.showMessageDialog(null, "El animal digitado no esta registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

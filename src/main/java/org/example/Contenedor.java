@@ -93,6 +93,28 @@ public class Contenedor<T> implements ListInterface<T> {
         return "";
     }
 
+    public String getStreamListCaracteristicas(){
+
+        if(dummy.getNext()!=back) {
+            return getStreamListRecursiveCaracteristicas(dummy.getNext());
+        }
+        return "";
+    }
+
+    public String getStreamListRecursiveCaracteristicas(NodeList<T> root) {
+
+        if(root.getData()!=null) { //por si entra back
+            //System.out.println("Agregando: " + root.getData().toString());
+            if(root.getNext().getData()!=null) {
+                return root.getData().toString() + " , " + getStreamListRecursive(root.getNext());
+            }else{
+                return root.getData().toString();
+            }
+
+        }
+        return "";
+    }
+
     @Override
     public void reverse() {
 
