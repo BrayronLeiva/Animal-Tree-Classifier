@@ -5,12 +5,15 @@ public class Animal {
     private String caracteristica;
     private boolean isAnimal;
 
+    private int nivel;
+
     public Animal(){}
 
-    public Animal(String nombre, String caracteristica, boolean animal) {
+    public Animal(String nombre, String caracteristica, boolean animal, int nivel) {
         isAnimal = animal;
         this.nombre = nombre;
         this.caracteristica = caracteristica;
+        this.nivel = nivel;
 
     }
 
@@ -38,6 +41,14 @@ public class Animal {
         this.caracteristica = caracteristica;
     }
 
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
     public String preguntar() {
         if(isAnimal){
             return "es "+ nombre;
@@ -48,6 +59,6 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "\nNombre " + nombre + " caracteristica " + caracteristica;
+        return "\nNombre " + nombre + " Nivel " + nivel;
     }
 }

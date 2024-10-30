@@ -18,4 +18,8 @@ public interface ListInterface<T> {
     void printList();
     String getStreamList();
 
+    void reverse();
+
+    void quickSort();
+
 }
