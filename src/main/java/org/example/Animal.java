@@ -4,7 +4,6 @@ public class Animal {
     private String nombre;
     private String caracteristica;
     private boolean isAnimal;
-
     private int nivel;
 
     public Animal(){}

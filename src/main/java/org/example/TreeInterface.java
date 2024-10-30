@@ -1,8 +1,9 @@
 package org.example;
 
+import java.util.Map;
+
 public interface TreeInterface {
     public void loadTree();
-    void insert(Animal data);
     void inorder();
     void preorder();
     void posorder();
@@ -13,4 +14,6 @@ public interface TreeInterface {
     void playRecursive(NodeTree root, int nivel);
 
     Contenedor<Animal> convertTreeIntoList();
+
+    Map<String, Contenedor<String>> convertTreeIntoHashMap();
 }

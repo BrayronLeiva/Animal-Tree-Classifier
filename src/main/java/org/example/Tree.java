@@ -1,9 +1,15 @@
 package org.example;
 import javax.swing.JOptionPane;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Tree implements TreeInterface {
     private NodeTree base;
 
+    private Contenedor<NodeTree> listStructure;
+
     public Tree() {
+        listStructure = new Contenedor<NodeTree>();
     }
 
     public void play(){
@@ -209,14 +215,6 @@ public class Tree implements TreeInterface {
 
     }
 
-    @Override
-    public void insert(Animal data) {
-        if(isEmpty()){
-            base = new NodeTree(data, null, null,null);
-            return;
-        }
-        insertRecursive(base, data);
-    }
 
     public void loadTree(){
         Animal data = new Animal("1","ave",false, 1);
@@ -240,23 +238,6 @@ public class Tree implements TreeInterface {
         cacarea.setRigt(gallina);
     }
 
-    private void insertRecursive(NodeTree base, Animal data) {
-        /*
-        if (data < base.getData()) {
-            if (base.getLeft() == null) {
-                base.setLeft(new Node(data, null, null));
-            } else {
-                insertRecursive(base.getLeft(), data);
-            }
-        } else {
-            if (base.getRigt() == null) {
-                base.setRigt(new Node(data, null, null));
-            } else {
-                insertRecursive(base.getRigt(), data);
-            }
-        }
-        */
-    }
 
     @Override
     public void inorder() {
@@ -322,11 +303,52 @@ public class Tree implements TreeInterface {
             convertTreeIntoListRecursive(root.getRigt(), animalContenedor);
             if(root.getData().isAnimal()) {
                 System.out.println("Agregadando de arbol a contenedor: " + root.getData().preguntar());
+                listStructure.addEnd(root);
                 animalContenedor.addEnd(root.getData());
             }
         }
     }
 
+    @Override
+    public Map<String, Contenedor<String>> convertTreeIntoHashMap(){
+        Map<String, Contenedor<String>> hashMap = new HashMap<>();
+        if (base != null) {
+            convertTreeIntoHashMapRecursive(listStructure.getDummy().getNext().getData(), hashMap, 0);
+        }
+        System.out.println("HashMap almacenado correctamente");
+        return null;
+    }
+
+    public void convertTreeIntoHashMapRecursive(NodeTree node, Map<String, Contenedor<String>> animalContenedor, Integer index){
+        if (node != null) {
+            NodeList<NodeTree> nodeList = this.listStructure.getNode(index);
+            NodeTree actual = nodeList.getData();
+            //convertTreeIntoHashMapRecursive(root.getLeft(), animalContenedor);
+            animalContenedor.put(actual.getData().getNombre(), fillAnimalCharacteristics(actual));
+            convertTreeIntoHashMapRecursive(nodeList.getNext().getData(), animalContenedor, index+1);
+            //convertTreeIntoHashMapRecursive(root.getRigt(), animalContenedor);
+
+        }
+    }
+
+    public Contenedor<String> fillAnimalCharacteristics(NodeTree node){
+        Contenedor<String> listaCaracteristicas = new Contenedor<String>();
+        return fillAnimalCharacteristicsRecursive(node, node.getParent(), listaCaracteristicas);
+
+    }
+
+    public Contenedor<String> fillAnimalCharacteristicsRecursive(NodeTree actual, NodeTree parent, Contenedor<String> listaCaracteristicas){
+        if(parent!=null) {
+            if (parent.getRigt() == actual) {
+                listaCaracteristicas.addEnd(parent.getData().getCaracteristica());
+                fillAnimalCharacteristicsRecursive(parent, parent.getParent(), listaCaracteristicas);
+            } else {
+                fillAnimalCharacteristicsRecursive(parent, parent.getParent(), listaCaracteristicas);
+            }
+        }
+        return listaCaracteristicas;
+
+    }
 
     @Override
     public void printTreeFormat(){

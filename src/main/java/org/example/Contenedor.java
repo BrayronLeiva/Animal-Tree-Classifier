@@ -36,7 +36,7 @@ public class Contenedor<T> implements ListInterface<T> {
         nodeList.setPrevious(previous_aux);
         previous_aux.setNext(nodeList);
         this.size++;
-        System.out.println("Index de " + nodeList.getData().toString() + " " + this.getIndexOfNode(nodeList));
+        //System.out.println("Index de " + nodeList.getData().toString() + " " + this.getIndexOfNode(nodeList));
 
     }
     // Getter y setter para dummy
@@ -118,22 +118,20 @@ public class Contenedor<T> implements ListInterface<T> {
 
     public NodeList<T> getNode(Integer target){
         if(dummy.getNext()!=back){
-            return getNodeRecursive(dummy, target, 0);
+            return getNodeRecursive(dummy.getNext(), target, 0);
         }
         return null;
     }
 
     public NodeList<T> getNodeRecursive(NodeList<T> node, Integer target, Integer index){
-        if(node!=dummy && node!=back){
-            Animal data = (Animal) node.getData();
+        if(node!=back){
             if(target==index){
                 return node;
+            }else {
+                return getNodeRecursive(node.getNext(), target, index + 1);
             }
-            return getNodeRecursive(node.getNext(),target,index+1);
-        }else{
-            return getNodeRecursive(node.getNext(), target, index+1);
         }
-        //return null;
+        return null;
     }
 
     public Integer getIndexOfNode(NodeList<T> node){
@@ -144,7 +142,7 @@ public class Contenedor<T> implements ListInterface<T> {
     }
 
     public Integer getIndexOfNodeRecursive(NodeList<T> node, NodeList<T> actual, Integer index){
-        if(node!=dummy && node!=back){
+        if(node!=back){
             if(actual.getData().equals(node.getData())){
                 return index;
             }else {
@@ -156,25 +154,22 @@ public class Contenedor<T> implements ListInterface<T> {
 
     @Override
     public void quickSort() {
-        NodeList<T> backAux = back.getPrevious();
-        NodeList<T> dummyAux = dummy.getNext();
+        Integer fin = this.getIndexOfNode(back.getPrevious());
+        Integer inicio = this.getIndexOfNode(dummy.getNext());
         if(dummy.getNext()!=back){ //existen elementos
-            quickSortRecursive(dummyAux,backAux);
+            quickSortRecursive(inicio,fin);
         }
     }
 
-    public void quickSortRecursive(NodeList<T> dummyRoot, NodeList<T> backRoot){
-        if(dummyRoot.getNext()!=null) {
-            //if (dummyRoot.getNext().getNext() != backRoot) {
-                NodeList<T> puntoQuibre = ubicarPivote(dummyRoot, backRoot);
-
-                quickSortRecursive(dummyRoot, puntoQuibre.getPrevious());
-                quickSortRecursive(puntoQuibre.getNext(), backRoot);
-            //}
+    public void quickSortRecursive(Integer inicio, Integer fin){
+        if(inicio<fin) {
+            Integer puntoQuibre = ubicarPivote(getNode(inicio), getNode(fin));
+            quickSortRecursive(inicio, puntoQuibre-1);
+            quickSortRecursive(puntoQuibre+1, fin);
         }
     }
 
-    private NodeList<T> ubicarPivote(NodeList<T> rootDummy, NodeList<T> rootBack){
+    private Integer ubicarPivote(NodeList<T> rootDummy, NodeList<T> rootBack){
         //7 3 5 8 4 9 0 1
         NodeList<T> backAux = rootBack;
         NodeList<T> dummyAux = rootDummy;
@@ -296,7 +291,7 @@ public class Contenedor<T> implements ListInterface<T> {
         }
 
         System.out.println("Acomodo de pivote listo");
-        return dummyAux;
+        return this.getIndexOfNode(dummyAux);
     }
 
     public int getSize() {

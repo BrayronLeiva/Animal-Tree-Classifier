@@ -1,40 +1,22 @@
 package org.example;
 
 import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
+
+    private Map<String, Contenedor<String>> hashMap;
     public static void main(String[] args) {
         TreeInterface tree = new Tree();
         tree.loadTree();
-        //tree.inorder();
-        //tree.play();
+        tree.inorder();
+        tree.play();
         Contenedor<Animal> animalContenedor;
-        //animalContenedor = tree.convertTreeIntoList();
-        animalContenedor = new Contenedor<Animal>();
-        Animal a = new Animal("12","12",true, 12);
-        Animal a1 = new Animal("9","9",true, 9);
-        Animal a2 = new Animal("18","18",true, 18);
-        Animal a3 = new Animal("8","8",true, 8);
-        Animal a4 = new Animal("24","24",true, 24);
-        Animal a5 = new Animal("15","15",true, 15);
-        Animal a6 = new Animal("10","10",true, 10);
-        Animal a7 = new Animal("20","20",true, 20);
-        animalContenedor.addEnd(a);
-        animalContenedor.addEnd(a1);
-        animalContenedor.addEnd(a2);
-        animalContenedor.addEnd(a3);
-        animalContenedor.addEnd(a4);
-        animalContenedor.addEnd(a5);
-        animalContenedor.addEnd(a6);
-        animalContenedor.addEnd(a7);
-        animalContenedor.printList();
-       // animalContenedor.quickSort();
+        animalContenedor = tree.convertTreeIntoList();
+        boolean continuar = true;
 
 
-        //animalContenedor.printList();
-
-
-        boolean continuar = false;
 
         while (continuar) {
             // Mostrar el menú de opciones
@@ -49,7 +31,7 @@ public class Main {
             if (opcion != null) {
                 switch (opcion) {
                     case "1":
-                        ordenarLista();
+                        ordenarLista(animalContenedor);
                         break;
                     case "2":
                         revertirLista(animalContenedor);
@@ -74,8 +56,8 @@ public class Main {
         }
 
     }
-    private static void ordenarLista() {
-
+    private static void ordenarLista(Contenedor<Animal> animalContenedor) {
+        animalContenedor.quickSort();
     }
 
     private static void revertirLista(Contenedor<Animal> animalContenedor) {
@@ -92,3 +74,29 @@ public class Main {
     }
 
 }
+
+
+/*
+        animalContenedor = new Contenedor<Animal>();
+        Animal a = new Animal("12","12",true, 12);
+        Animal a1 = new Animal("9","9",true, 9);
+        Animal a2 = new Animal("18","18",true, 18);
+        Animal a3 = new Animal("8","8",true, 8);
+        Animal a4 = new Animal("24","24",true, 24);
+        Animal a5 = new Animal("15","15",true, 15);
+        Animal a6 = new Animal("10","10",true, 10);
+        Animal a7 = new Animal("20","20",true, 20);
+        animalContenedor.addEnd(a);
+        animalContenedor.addEnd(a1);
+        animalContenedor.addEnd(a2);
+        animalContenedor.addEnd(a3);
+        animalContenedor.addEnd(a4);
+        animalContenedor.addEnd(a5);
+        animalContenedor.addEnd(a6);
+        animalContenedor.addEnd(a7);
+        //animalContenedor.printList();
+        animalContenedor.quickSort();
+
+
+        animalContenedor.printList();
+*/
