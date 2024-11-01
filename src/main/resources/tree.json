@@ -1,0 +1,8 @@
+[
+  {"nombre": "ave", "tipo": "1", "esEspecie": false, "nivel": 1, "padre": null, "lado": "root"},
+  {"nombre": "reptil", "tipo": "", "esEspecie": false, "nivel": 2, "padre": "ave", "lado": "left"},
+  {"nombre": "Lagarto", "tipo": "reptil", "esEspecie": true, "nivel": 3, "padre": "reptil", "lado": "right"},
+  {"nombre": "cacarea", "tipo": "1", "esEspecie": false, "nivel": 2, "padre": "ave", "lado": "right"},
+  {"nombre": "aguila", "tipo": "caza", "esEspecie": true, "nivel": 3, "padre": "cacarea", "lado": "left"},
+  {"nombre": "gallina", "tipo": "cacarea", "esEspecie": true, "nivel": 3, "padre": "cacarea", "lado": "right"}
+]

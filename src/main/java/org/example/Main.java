@@ -24,7 +24,7 @@ public class Main {
                             "1. Ordenar lista (Sort)\n" +
                             "2. Revertir lista (Reverse)\n" +
                             "3. Imprimir lista (Display)\n" +
-                            "4. Buscar elemento\n" +
+                            "4. Buscar elemento (Features)\n" +
                             "5. Salir", "Menú de opciones", JOptionPane.QUESTION_MESSAGE);
 
             if (opcion != null) {

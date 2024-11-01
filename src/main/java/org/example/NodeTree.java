@@ -6,7 +6,7 @@ public class NodeTree {
     private NodeTree left;
     private NodeTree rigt;
     private Boolean caracteristicaAdded;
-    private NodeTree parent;
+    //private NodeTree parent;
 
     public NodeTree(Animal dato, NodeTree left, NodeTree right, NodeTree parent, Boolean caracteristicaAdded){
 
@@ -52,13 +52,13 @@ public class NodeTree {
         this.rigt = rigt;
     }
 
-    public NodeTree getParent() {
-        return parent;
-    }
+    //public NodeTree getParent() {
+        //return parent;
+    //}
 
-    public void setParent(NodeTree parent) {
-        this.parent = parent;
-    }
+    //public void setParent(NodeTree parent) {
+        //this.parent = parent;
+    //}
 
     public boolean hasChildren(){
         return left != null || rigt != null;
