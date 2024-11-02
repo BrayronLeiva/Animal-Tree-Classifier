@@ -1,9 +1,11 @@
-package org.example;
+package org.example.DataStructures;
+
+import org.example.Models.Animal;
 
 import java.util.Map;
 
 public interface TreeInterface {
-    public void loadTree();
+    public boolean loadTree();
     void inorder();
     void preorder();
     void posorder();
@@ -11,9 +13,11 @@ public interface TreeInterface {
     void printTreeFormat();
     boolean isEmpty();
     void play();
-    void playRecursive(NodeTree root,NodeTree parent, int nivel, ListInterface<String> lista);
+    void playRecursive(NodeTree root, NodeTree parent, int nivel, ListInterface<String> lista);
 
     Contenedor<Animal> convertTreeIntoList();
 
     Map<String, ListInterface<String>> convertTreeIntoHashMap();
+
+    public void guardarArbol();
 }

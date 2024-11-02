@@ -1,8 +1,54 @@
-[
-  {"nombre": "ave", "tipo": "1", "esEspecie": false, "nivel": 1, "padre": null, "lado": "root"},
-  {"nombre": "reptil", "tipo": "", "esEspecie": false, "nivel": 2, "padre": "ave", "lado": "left"},
-  {"nombre": "Lagarto", "tipo": "reptil", "esEspecie": true, "nivel": 3, "padre": "reptil", "lado": "right"},
-  {"nombre": "cacarea", "tipo": "1", "esEspecie": false, "nivel": 2, "padre": "ave", "lado": "right"},
-  {"nombre": "aguila", "tipo": "caza", "esEspecie": true, "nivel": 3, "padre": "cacarea", "lado": "left"},
-  {"nombre": "gallina", "tipo": "cacarea", "esEspecie": true, "nivel": 3, "padre": "cacarea", "lado": "right"}
-]
+{
+  "data": {
+    "nombre": "ave",
+    "caracteristica": "ave",
+    "isAnimal": false,
+    "nivel": 1,
+    "caracteristicas": []
+  },
+  "left": {
+    "data": {
+      "nombre": "",
+      "caracteristica": "reptil",
+      "isAnimal": false,
+      "nivel": 2,
+      "caracteristicas": []
+    },
+    "right": {
+      "data": {
+        "nombre": "Lagarto",
+        "caracteristica": "reptil",
+        "isAnimal": true,
+        "nivel": 3,
+        "caracteristicas": ["reptil"]
+      }
+    }
+  },
+  "right": {
+    "data": {
+      "nombre": "cacarea",
+      "caracteristica": "cacarea",
+      "isAnimal": false,
+      "nivel": 2,
+      "caracteristicas": []
+    },
+    "left": {
+      "data": {
+        "nombre": "aguila",
+        "caracteristica": "caza",
+        "isAnimal": true,
+        "nivel": 3,
+        "caracteristicas": ["ave"]
+      }
+    },
+    "right": {
+      "data": {
+        "nombre": "gallina",
+        "caracteristica": "cacarea",
+        "isAnimal": true,
+        "nivel": 3,
+        "caracteristicas": ["ave", "cacarea"]
+      }
+    }
+  }
+}

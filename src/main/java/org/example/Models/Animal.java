@@ -1,6 +1,10 @@
-package org.example;
+package org.example.Models;
 
-public class Animal {
+import org.example.DataStructures.ListInterface;
+
+import java.io.Serializable;
+
+public class Animal implements Serializable {
     private String nombre;
     private String caracteristica;
     private boolean isAnimal;

@@ -1,18 +1,22 @@
-package org.example;
+package org.example.DataStructures;
 
-public class NodeTree {
+import org.example.Models.Animal;
+
+import java.io.Serializable;
+
+public class NodeTree implements Serializable {
 
     private Animal data;
     private NodeTree left;
-    private NodeTree rigt;
+    private NodeTree right;
     private Boolean caracteristicaAdded;
-    //private NodeTree parent;
+
 
     public NodeTree(Animal dato, NodeTree left, NodeTree right, Boolean caracteristicaAdded){
 
         this.data = dato;
         this.left = left;
-        this.rigt = right;
+        this.right = right;
         this.caracteristicaAdded = caracteristicaAdded;
 
     }
@@ -20,7 +24,7 @@ public class NodeTree {
     public NodeTree(Animal dato, NodeTree left, NodeTree right){
         this.data = dato;
         this.left = left;
-        this.rigt = right;
+        this.right = right;
     }
 
     public Animal getData() {
@@ -39,25 +43,16 @@ public class NodeTree {
         this.left = left;
     }
 
-    public NodeTree getRigt() {
-        return rigt;
+    public NodeTree getRight() {
+        return right;
     }
 
-    public void setRigt(NodeTree rigt) {
-        this.rigt = rigt;
+    public void setRight(NodeTree right) {
+        this.right = right;
     }
-
-
-    //public NodeTree getParent() {
-        //return parent;
-    //}
-
-    //public void setParent(NodeTree parent) {
-        //this.parent = parent;
-    //}
 
     public boolean hasChildren(){
-        return left != null || rigt != null;
+        return left != null || right != null;
     }
 
     public Boolean getCaracteristicaAdded() {return caracteristicaAdded;}

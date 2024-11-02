@@ -1,6 +1,8 @@
-package org.example;
+package org.example.DataStructures;
 
-public class NodeList<T> {
+import java.io.Serializable;
+
+public class NodeList<T> implements Serializable {
     private NodeList<T> previous;  // Ahora es un nodo de tipo genérico <T>
     private NodeList<T> next;   // También de tipo genérico <T>
     private T data;             // El dato ahora es de tipo genérico

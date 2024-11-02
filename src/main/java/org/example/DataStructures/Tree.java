@@ -1,7 +1,13 @@
-package org.example;
-import org.w3c.dom.Node;
+package org.example.DataStructures;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import org.example.Models.Animal;
 
 import javax.swing.JOptionPane;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,7 +97,7 @@ public class Tree implements TreeInterface {
 
             } else{
                 lista.addEnd(root.getData().getCaracteristica());
-                playRecursive(root.getRigt(), root, nivel+1, lista); // si es si y no se trata de un animal
+                playRecursive(root.getRight(), root, nivel+1, lista); // si es si y no se trata de un animal
             }
 
         }
@@ -141,7 +147,7 @@ public class Tree implements TreeInterface {
                             NodeTree carac_nodo = new NodeTree(carac_animal, null, null);
 
                             pivote.setLeft(carac_nodo); //padre de ballena en este momento que era la caract que no cumple ballena //la cambiamos por mi caracteristica
-                            carac_nodo.setRigt(root); //como es mi caracteristica me voy a si
+                            carac_nodo.setRight(root); //como es mi caracteristica me voy a si
                             //root.setParent(carac_nodo); //mi padre ahora va ser esa caracteristica mia
                             //decir que la caracteristica de root = por ejemplo ballena esta agregada
                             root.setCaracteristicaAdded(true);
@@ -177,7 +183,7 @@ public class Tree implements TreeInterface {
 
                                 pivote.setLeft(animalNodeCaracteTree); //left de mi padre ahora es la nueva carac del nuevo animal
                                 NodeTree animalObj = new NodeTree(animal,null,null, true);// nodo del nuevo animal
-                                animalNodeCaracteTree.setRigt(animalObj);//en el si de la carac esta el nuevo animal
+                                animalNodeCaracteTree.setRight(animalObj);//en el si de la carac esta el nuevo animal
                                 animalNodeCaracteTree.setLeft(root); //como no yo - ya que mi carac esta mas arriba y no se puede poner doble
                                 root.getData().setNivel(nivel+1); //mi nivel baja
 
@@ -206,9 +212,9 @@ public class Tree implements TreeInterface {
 
                             //NodeTree parent = root.getParent();
                             NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null);
-                            pivote.setRigt(animalNodeCaracteTree);
+                            pivote.setRight(animalNodeCaracteTree);
                             NodeTree animalObj = new NodeTree(animal,null,null, true);
-                            animalNodeCaracteTree.setRigt(animalObj);
+                            animalNodeCaracteTree.setRight(animalObj);
                             animalNodeCaracteTree.setLeft(root);
                             root.getData().setNivel(nivel+1);
                             //root.setParent(animalNodeCaracteTree);
@@ -224,7 +230,8 @@ public class Tree implements TreeInterface {
     }
 
 
-    public void loadTree(){
+    public boolean loadTree(){
+        /*
         Animal data = new Animal("1","ave",false, 1);
         base =  new NodeTree(data, null, null, null);
 
@@ -257,6 +264,9 @@ public class Tree implements TreeInterface {
         Animal data5 = new Animal("gallina","cacarea",true,3, listaGallina);
         NodeTree gallina = new NodeTree(data5,null,null, true);
         cacarea.setRigt(gallina);
+
+         */
+        return loadTreeFromJson();
     }
 
 
@@ -272,7 +282,7 @@ public class Tree implements TreeInterface {
         if (root != null) {
             inOrderRecursive(root.getLeft());
             System.out.println(root.getData().preguntar());
-            inOrderRecursive(root.getRigt());
+            inOrderRecursive(root.getRight());
         }
     }
 
@@ -288,7 +298,7 @@ public class Tree implements TreeInterface {
         if (root != null) {
             System.out.println(root.getData().preguntar());
             preOrderRecursive(root.getLeft());
-            preOrderRecursive(root.getRigt());
+            preOrderRecursive(root.getRight());
         }
     }
 
@@ -303,7 +313,7 @@ public class Tree implements TreeInterface {
     private void posOrderRecursive(NodeTree root) {
         if (root != null) {
             posOrderRecursive(root.getLeft());
-            posOrderRecursive(root.getRigt());
+            posOrderRecursive(root.getRight());
             System.out.println(root.getData().preguntar());
         }
     }
@@ -321,7 +331,7 @@ public class Tree implements TreeInterface {
     public void convertTreeIntoListRecursive(NodeTree root, Contenedor<Animal> animalContenedor){
         if (root != null) {
             convertTreeIntoListRecursive(root.getLeft(), animalContenedor);
-            convertTreeIntoListRecursive(root.getRigt(), animalContenedor);
+            convertTreeIntoListRecursive(root.getRight(), animalContenedor);
             if(root.getData().isAnimal()) {
                 System.out.println("Agregadando de arbol a contenedor: " + root.getData().preguntar());
                 listStructure.addEnd(root);
@@ -340,7 +350,7 @@ public class Tree implements TreeInterface {
         return hashMap;
     }
 
-        public void convertTreeIntoHashMapRecursive(NodeList<NodeTree> node, Map<String, ListInterface<String>> animalContenedor){
+    public void convertTreeIntoHashMapRecursive(NodeList<NodeTree> node, Map<String, ListInterface<String>> animalContenedor){
             if (node != listStructure.getBack()) {
                 NodeTree actual = node.getData();
                 //convertTreeIntoHashMapRecursive(root.getLeft(), animalContenedor);
@@ -361,12 +371,42 @@ public class Tree implements TreeInterface {
 
     private String printTreeFormatRecursive(NodeTree root){
         if (root != null) {
-            return printTreeFormatRecursive(root.getLeft()) + "   " + root.getData().preguntar() + "   " + printTreeFormatRecursive(root.getRigt());
+            return printTreeFormatRecursive(root.getLeft()) + "   " + root.getData().preguntar() + "   " + printTreeFormatRecursive(root.getRight());
         }
         return "NULL";
     }
 
+    public boolean loadTreeFromJson() {
+        Gson gson = new Gson();
+        try (FileReader reader = new FileReader("C:\\Users\\Brayron Leiva\\IdeaProjects\\Proyecto1EstructurasDatos\\src\\main\\resources\\tree.json")) {
+            // Convertir el JSON en el nodo raíz del árbol
+            base = gson.fromJson(reader, NodeTree.class);
+            return true;
+        } catch (IOException | JsonSyntaxException e) {
+            showMessage("No se encontro el archivo");
+            //e.printStackTrace();
+            return false;
+        }
+    }
 
+    // Método para guardar el árbol como JSON usando Gson
+    public void saveTreeAsJSON(String filePath) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (FileWriter writer = new FileWriter(filePath)) {
+            // Serializamos el nodo base (raíz) y sus nodos hijos automáticamente
+            gson.toJson(base, writer);
+            System.out.println("El árbol se ha guardado en " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void guardarArbol() {
+        saveTreeAsJSON("C:\\Users\\Brayron Leiva\\IdeaProjects\\Proyecto1EstructurasDatos\\src\\main\\resources\\tree.json");
+    }
     @Override
     public void cleanTree() {
         base = null;
