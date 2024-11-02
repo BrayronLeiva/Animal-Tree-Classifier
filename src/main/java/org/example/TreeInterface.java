@@ -11,9 +11,9 @@ public interface TreeInterface {
     void printTreeFormat();
     boolean isEmpty();
     void play();
-    void playRecursive(NodeTree root, int nivel);
+    void playRecursive(NodeTree root,NodeTree parent, int nivel, ListInterface<String> lista);
 
     Contenedor<Animal> convertTreeIntoList();
 
-    Map<String, Contenedor<String>> convertTreeIntoHashMap();
+    Map<String, ListInterface<String>> convertTreeIntoHashMap();
 }

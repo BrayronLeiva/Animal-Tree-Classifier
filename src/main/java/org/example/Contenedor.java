@@ -92,7 +92,7 @@ public class Contenedor<T> implements ListInterface<T> {
         }
         return "";
     }
-
+    @Override
     public String getStreamListCaracteristicas(){
 
         if(dummy.getNext()!=back) {
@@ -314,6 +314,25 @@ public class Contenedor<T> implements ListInterface<T> {
 
         System.out.println("Acomodo de pivote listo");
         return this.getIndexOfNode(dummyAux);
+    }
+    @Override
+    public boolean contains(T target){
+        if(dummy.getNext()!=back) {
+            return containsRecursive(dummy.getNext(), target);
+        }else{
+            return false;
+        }
+    }
+
+    public boolean containsRecursive(NodeList<T> node, T target){
+        if(node!=null && node != back) {//por si entra back
+            if(node.getData().equals(target)){
+                return true;
+            }else{
+                return containsRecursive(node.getNext(), target);
+            }
+        }
+        return false;
     }
 
     public int getSize() {

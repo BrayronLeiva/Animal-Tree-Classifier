@@ -8,24 +8,19 @@ public class NodeTree {
     private Boolean caracteristicaAdded;
     //private NodeTree parent;
 
-    public NodeTree(Animal dato, NodeTree left, NodeTree right, NodeTree parent, Boolean caracteristicaAdded){
+    public NodeTree(Animal dato, NodeTree left, NodeTree right, Boolean caracteristicaAdded){
 
         this.data = dato;
         this.left = left;
         this.rigt = right;
-        this.parent = parent;
         this.caracteristicaAdded = caracteristicaAdded;
 
     }
 
-    public NodeTree(Animal dato, NodeTree left, NodeTree right, NodeTree parent){
-
+    public NodeTree(Animal dato, NodeTree left, NodeTree right){
         this.data = dato;
         this.left = left;
         this.rigt = right;
-        this.parent = parent;
-
-
     }
 
     public Animal getData() {
@@ -51,6 +46,7 @@ public class NodeTree {
     public void setRigt(NodeTree rigt) {
         this.rigt = rigt;
     }
+
 
     //public NodeTree getParent() {
         //return parent;

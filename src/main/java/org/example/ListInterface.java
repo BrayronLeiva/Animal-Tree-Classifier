@@ -22,4 +22,9 @@ public interface ListInterface<T> {
 
     void quickSort();
 
+    String getStreamListCaracteristicas();
+
+    boolean contains(T target);
+
+
 }

@@ -1,4 +1,6 @@
 package org.example;
+import org.w3c.dom.Node;
+
 import javax.swing.JOptionPane;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +15,11 @@ public class Tree implements TreeInterface {
     }
 
     public void play(){
+        ListInterface<String> lista = new Contenedor<String>();
         if(isEmpty()){
             System.out.println("El arbol esta vacio ingrese un animal: ");
         }else{
-            playRecursive(base, 1);
+            playRecursive(base, null,1, lista);
         }
     }
 
@@ -73,13 +76,13 @@ public class Tree implements TreeInterface {
         return true; // Retornamos true si los datos fueron capturados correctamente
     }
 
-
-    public void playRecursive(NodeTree root, int nivel){
+    public void playRecursive(NodeTree root, NodeTree pivote, int nivel, ListInterface<String> lista){
         String[] nombreAnimal = new String[1];
         String[] caracteristicaAnimal = new String[1];
         // Mostramos un cuadro de diálogo con botones de opción
         int respuesta = makeQuestion("El animal que esta pensando : ", root.getData().preguntar());
 
+        //SI LA RESPUESTA ES SI
         if (respuesta == JOptionPane.YES_OPTION) {
             if(root.getData().isAnimal()){
                 showMessage("¡El animal ya existe!");
@@ -87,15 +90,19 @@ public class Tree implements TreeInterface {
                 quieresJugarOtraVez();
 
             } else{
-                playRecursive(root.getRigt(), nivel+1); // si es si y no se trata de un animal
+                lista.addEnd(root.getData().getCaracteristica());
+                playRecursive(root.getRigt(), root, nivel+1, lista); // si es si y no se trata de un animal
             }
 
-        } else { //SI LA RESPUESTA ES NO
+        }
+
+        //SI LA RESPUESTA ES NO
+        if(respuesta == JOptionPane.NO_OPTION) {
             System.out.println("¡Vamos a seguir buscando!");
 
             if(root.getLeft()!=null) {
 
-                playRecursive(root.getLeft(), nivel+1);
+                playRecursive(root.getLeft(), root, nivel+1, lista);
 
             }else {
                 //caso de que estoy en una caracteristica y el lado izquierdo esta vacio, por lo cual si hay una caracteristica es que del lado
@@ -109,8 +116,9 @@ public class Tree implements TreeInterface {
                         // Mostrar la información capturada
                         showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
                         // Crear un nuevo animal y nodo
-                        Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true, nivel+1);
-                        NodeTree animalNodo = new NodeTree(animal, null, null, root, false);
+                        Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true, nivel+1, lista);
+
+                        NodeTree animalNodo = new NodeTree(animal, null, null, false);
                         root.setLeft(animalNodo); // Ingresar a la izquierda del nodo actual
                         inorder();
                         play();
@@ -124,17 +132,17 @@ public class Tree implements TreeInterface {
                     //una caracteristica que el si tenia algo y tambien en el no tenia algo ya que ese algo es donde estoy justo ahora
                     //por lo que voy a sacar mi caracteristica para hacer un nodo y ponerme yo del lado del si para luego pedir los datos
                     //del nuevo animal y colocarlo del lado del no, justo como estoy yo antes de hacer todo esto
-                    if (root.getParent().getData().getCaracteristica() != root.getData().getCaracteristica()) {
+                    if (pivote.getData().getCaracteristica() != root.getData().getCaracteristica()) {
                         if (!root.getCaracteristicaAdded()){
 
                             System.out.println("Hay que hacer switch ya que vamos a ingresar debajo de un animal");
 
                             Animal carac_animal = new Animal("1", root.getData().getCaracteristica(), false, nivel);//va ocupar mi posicion
-                            NodeTree carac_nodo = new NodeTree(carac_animal, null, null, root.getParent());
+                            NodeTree carac_nodo = new NodeTree(carac_animal, null, null);
 
-                            root.getParent().setLeft(carac_nodo); //padre de ballena en este momento que era la caract que no cumple ballena //la cambiamos por mi caracteristica
+                            pivote.setLeft(carac_nodo); //padre de ballena en este momento que era la caract que no cumple ballena //la cambiamos por mi caracteristica
                             carac_nodo.setRigt(root); //como es mi caracteristica me voy a si
-                            root.setParent(carac_nodo); //mi padre ahora va ser esa caracteristica mia
+                            //root.setParent(carac_nodo); //mi padre ahora va ser esa caracteristica mia
                             //decir que la caracteristica de root = por ejemplo ballena esta agregada
                             root.setCaracteristicaAdded(true);
                             root.getData().setNivel(nivel+1);//voy a estar 1 mas abajo de donde estoy actualmente
@@ -145,8 +153,8 @@ public class Tree implements TreeInterface {
                                 // Mostrar la información capturada
                                 showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
                                 //el mae que va la izquierda por que es no
-                                Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true, nivel+1);
-                                NodeTree nodeTreeAnimal = new NodeTree(animal, null, null, carac_nodo, false);
+                                Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true, nivel+1, lista);
+                                NodeTree nodeTreeAnimal = new NodeTree(animal, null, null, false);
                                 carac_nodo.setLeft(nodeTreeAnimal);//pongo de no al animal nuevo que no le he agregado la caracteristica
                                 inorder();
                                 play();
@@ -161,19 +169,19 @@ public class Tree implements TreeInterface {
                             if (capturarDatosAnimal(nombreAnimal, caracteristicaAnimal)) {
                                 // Mostrar la información capturada
                                 showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
-                                Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true, nivel+1);//creo nuevo animal
+                                Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true, nivel+1, lista);//creo nuevo animal
                                 Animal animalCaracteristica = new Animal("",caracteristicaAnimal[0],false,nivel);//creo carac del nuevo animal
 
-                                NodeTree parent = root.getParent(); //mi padre
-                                NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null,parent);//nodo carac del nuevo
+                                //NodeTree parent = root.getParent(); //mi padre
+                                NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null);//nodo carac del nuevo
 
-                                parent.setLeft(animalNodeCaracteTree); //left de mi padre ahora es la nueva carac del nuevo animal
-                                NodeTree animalObj = new NodeTree(animal,null,null, animalNodeCaracteTree, true);// nodo del nuevo animal
+                                pivote.setLeft(animalNodeCaracteTree); //left de mi padre ahora es la nueva carac del nuevo animal
+                                NodeTree animalObj = new NodeTree(animal,null,null, true);// nodo del nuevo animal
                                 animalNodeCaracteTree.setRigt(animalObj);//en el si de la carac esta el nuevo animal
                                 animalNodeCaracteTree.setLeft(root); //como no yo - ya que mi carac esta mas arriba y no se puede poner doble
                                 root.getData().setNivel(nivel+1); //mi nivel baja
 
-                                root.setParent(animalNodeCaracteTree);
+                                //root.setParent(animalNodeCaracteTree);
                                 //carac_nodo.setLeft(new Node(animal, null, null, carac_nodo));
                                 inorder();
                                 play();
@@ -193,17 +201,17 @@ public class Tree implements TreeInterface {
                         if (capturarDatosAnimal(nombreAnimal, caracteristicaAnimal)) {
                             // Mostrar la información capturada
                             showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
-                            Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true, nivel+1);
+                            Animal animal = new Animal(nombreAnimal[0], caracteristicaAnimal[0], true, nivel+1, lista);
                             Animal animalCaracteristica = new Animal("",caracteristicaAnimal[0],false, nivel);
 
-                            NodeTree parent = root.getParent();
-                            NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null,parent);
-                            parent.setRigt(animalNodeCaracteTree);
-                            NodeTree animalObj = new NodeTree(animal,null,null, animalNodeCaracteTree, true);
+                            //NodeTree parent = root.getParent();
+                            NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null);
+                            pivote.setRigt(animalNodeCaracteTree);
+                            NodeTree animalObj = new NodeTree(animal,null,null, true);
                             animalNodeCaracteTree.setRigt(animalObj);
                             animalNodeCaracteTree.setLeft(root);
                             root.getData().setNivel(nivel+1);
-                            root.setParent(animalNodeCaracteTree);
+                            //root.setParent(animalNodeCaracteTree);
                             inorder();
                             play();
                         }
@@ -221,20 +229,33 @@ public class Tree implements TreeInterface {
         base =  new NodeTree(data, null, null, null);
 
         Animal data1 = new Animal("","reptil",false,2);
-        NodeTree reptil = new NodeTree(data1,null,null, base);
+        NodeTree reptil = new NodeTree(data1,null,null);
         base.setLeft(reptil);
-        Animal data2 = new Animal("Lagarto","reptil",true, 3);
-        NodeTree lagarto = new NodeTree(data2,null,null, reptil, true);
+
+
+        ListInterface<String> listaLagarto = new Contenedor<String>();
+        listaLagarto.addEnd("reptil");
+        Animal data2 = new Animal("Lagarto","reptil",true, 3, listaLagarto);
+        NodeTree lagarto = new NodeTree(data2,null,null, true);
         reptil.setRigt(lagarto);
+
+
         //regresamos a base
         Animal data3 = new Animal("1","cacarea", false,2);
-        NodeTree cacarea = new NodeTree(data3,null,null, base);
+        NodeTree cacarea = new NodeTree(data3,null,null);
         base.setRigt(cacarea);
-        Animal data4 = new Animal("aguila","caza", true,3);
-        NodeTree aguila = new NodeTree(data4,null,null,cacarea, true);
+
+        ListInterface<String> listaAguila = new Contenedor<String>();
+        listaAguila.addEnd("ave");
+        Animal data4 = new Animal("aguila","caza", true,3,listaAguila);
+        NodeTree aguila = new NodeTree(data4,null,null, true);
         cacarea.setLeft(aguila);
-        Animal data5 = new Animal("gallina","cacarea",true,3);
-        NodeTree gallina = new NodeTree(data5,null,null,cacarea, true);
+
+        ListInterface<String> listaGallina = new Contenedor<String>();
+        listaGallina.addEnd("ave");
+        listaGallina.addEnd("cacarea");
+        Animal data5 = new Animal("gallina","cacarea",true,3, listaGallina);
+        NodeTree gallina = new NodeTree(data5,null,null, true);
         cacarea.setRigt(gallina);
     }
 
@@ -310,8 +331,8 @@ public class Tree implements TreeInterface {
     }
 
     @Override
-    public Map<String, Contenedor<String>> convertTreeIntoHashMap(){
-        Map<String, Contenedor<String>> hashMap = new HashMap<>();
+    public Map<String, ListInterface<String>> convertTreeIntoHashMap(){
+        Map<String, ListInterface<String>> hashMap = new HashMap<>();
         if (base != null) {
             convertTreeIntoHashMapRecursive(listStructure.getDummy().getNext(), hashMap);
         }
@@ -319,34 +340,16 @@ public class Tree implements TreeInterface {
         return hashMap;
     }
 
-    public void convertTreeIntoHashMapRecursive(NodeList<NodeTree> node, Map<String, Contenedor<String>> animalContenedor){
-        if (node != listStructure.getBack()) {
-            NodeTree actual = node.getData();
-            //convertTreeIntoHashMapRecursive(root.getLeft(), animalContenedor);
-            animalContenedor.put(actual.getData().getNombre(), fillAnimalCharacteristics(actual));
-            convertTreeIntoHashMapRecursive(node.getNext(), animalContenedor);
-            //convertTreeIntoHashMapRecursive(root.getRigt(), animalContenedor);
-        }
-    }
-
-    public Contenedor<String> fillAnimalCharacteristics(NodeTree node){
-        Contenedor<String> listaCaracteristicas = new Contenedor<String>();
-        return fillAnimalCharacteristicsRecursive(node, node.getParent(), listaCaracteristicas);
-
-    }
-
-    public Contenedor<String> fillAnimalCharacteristicsRecursive(NodeTree actual, NodeTree parent, Contenedor<String> listaCaracteristicas){
-        if(parent!=null) {
-            if (parent.getRigt() == actual) {
-                listaCaracteristicas.addEnd(parent.getData().getCaracteristica());
-                fillAnimalCharacteristicsRecursive(parent, parent.getParent(), listaCaracteristicas);
-            } else {
-                fillAnimalCharacteristicsRecursive(parent, parent.getParent(), listaCaracteristicas);
+        public void convertTreeIntoHashMapRecursive(NodeList<NodeTree> node, Map<String, ListInterface<String>> animalContenedor){
+            if (node != listStructure.getBack()) {
+                NodeTree actual = node.getData();
+                //convertTreeIntoHashMapRecursive(root.getLeft(), animalContenedor);
+                animalContenedor.put(actual.getData().getNombre(), actual.getData().getListaCaracteristicas());
+                convertTreeIntoHashMapRecursive(node.getNext(), animalContenedor);
+                //convertTreeIntoHashMapRecursive(root.getRigt(), animalContenedor);
             }
         }
-        return listaCaracteristicas;
 
-    }
 
     @Override
     public void printTreeFormat(){

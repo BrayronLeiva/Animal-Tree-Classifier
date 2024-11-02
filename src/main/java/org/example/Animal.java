@@ -5,8 +5,21 @@ public class Animal {
     private String caracteristica;
     private boolean isAnimal;
     private int nivel;
+    private ListInterface<String> listaCaracteristicas;
 
     public Animal(){}
+
+    public Animal(String nombre, String caracteristica, boolean animal, int nivel, ListInterface<String> listaCaracteristicas) {
+        isAnimal = animal;
+        this.nombre = nombre;
+        this.caracteristica = caracteristica;
+        this.nivel = nivel;
+        this.listaCaracteristicas = listaCaracteristicas;
+        if(!listaCaracteristicas.contains(caracteristica)){
+            listaCaracteristicas.addEnd(caracteristica);
+        }
+
+    }
 
     public Animal(String nombre, String caracteristica, boolean animal, int nivel) {
         isAnimal = animal;
@@ -59,5 +72,13 @@ public class Animal {
     @Override
     public String toString() {
         return "\nNombre " + nombre + " Nivel " + nivel;
+    }
+
+    public ListInterface<String> getListaCaracteristicas() {
+        return listaCaracteristicas;
+    }
+
+    public void setListaCaracteristicas(ListInterface<String> listaCaracteristicas) {
+        this.listaCaracteristicas = listaCaracteristicas;
     }
 }

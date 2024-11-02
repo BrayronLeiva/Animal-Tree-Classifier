@@ -6,13 +6,13 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<String, Contenedor<String>> hashMap;
+    private static Map<String, ListInterface<String>> hashMap;
     public static void main(String[] args) {
         TreeInterface tree = new Tree();
         tree.loadTree();
         tree.inorder();
         tree.play();
-        Contenedor<Animal> animalContenedor;
+        ListInterface<Animal> animalContenedor;
         animalContenedor = tree.convertTreeIntoList();
         hashMap = tree.convertTreeIntoHashMap();
 
@@ -55,15 +55,15 @@ public class Main {
         }
 
     }
-    private static void ordenarLista(Contenedor<Animal> animalContenedor) {
+    private static void ordenarLista(ListInterface<Animal> animalContenedor) {
         animalContenedor.quickSort();
     }
 
-    private static void revertirLista(Contenedor<Animal> animalContenedor) {
+    private static void revertirLista(ListInterface<Animal> animalContenedor) {
         animalContenedor.reverse();
     }
 
-    private static void imprimirLista(Contenedor<Animal> animalContenedor) {
+    private static void imprimirLista(ListInterface<Animal> animalContenedor) {
         System.out.println(animalContenedor.getStreamList());
         JOptionPane.showMessageDialog(null, "Lista actual: " + animalContenedor.getStreamList());
     }
