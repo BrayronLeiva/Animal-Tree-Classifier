@@ -1,6 +1,8 @@
 package org.example.DataStructures;
 
-public interface ListInterface<T> {
+import java.io.Serializable;
+
+public interface ListInterface<T extends Serializable> extends Serializable {
 
     void addFront(T obj);
 

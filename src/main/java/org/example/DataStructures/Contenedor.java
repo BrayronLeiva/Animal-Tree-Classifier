@@ -5,7 +5,7 @@ import org.example.Models.Animal;
 import java.io.Serializable;
 
 public class Contenedor<T extends Serializable> implements ListInterface<T>, Serializable {
-
+    private static final long serialVersionUID = 1L; // Añadir un UID para la serialización
     private NodeList<T> dummy;  // Ahora es un nodo de tipo genérico <T>
     private NodeList<T> back;   // También de tipo genérico <T>
 
