@@ -10,6 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
+import java.lang.reflect.Type;
 
 public class Tree implements TreeInterface {
     private NodeTree base;
@@ -377,14 +380,25 @@ public class Tree implements TreeInterface {
     }
 
     public boolean loadTreeFromJson() {
-        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        // Registra el InstanceCreator para ListInterface
+        gsonBuilder.registerTypeAdapter(ListInterface.class, new InstanceCreator<ListInterface<String>>() {
+            @Override
+            public ListInterface<String> createInstance(Type type) {
+                return new Contenedor<>(); // Retorna una instancia concreta de Contenedor
+            }
+        });
+
+        Gson gson = gsonBuilder.create(); // Crea el objeto Gson con el registrador
+
         try (FileReader reader = new FileReader("C:\\Users\\Brayron Leiva\\IdeaProjects\\Proyecto1EstructurasDatos\\src\\main\\resources\\tree.json")) {
             // Convertir el JSON en el nodo raíz del árbol
             base = gson.fromJson(reader, NodeTree.class);
             return true;
         } catch (IOException | JsonSyntaxException e) {
-            showMessage("No se encontro el archivo");
-            //e.printStackTrace();
+            showMessage("No se encontró el archivo");
+            e.printStackTrace();
             return false;
         }
     }

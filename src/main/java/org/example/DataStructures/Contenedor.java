@@ -11,7 +11,7 @@ public class Contenedor<T extends Serializable> implements ListInterface<T>, Ser
 
     private int size;
 
-    Contenedor(){
+    public Contenedor(){
         back = new NodeList<>(null,null,null);
         dummy = new NodeList<>(null,null,null);
         dummy.setNext(back);

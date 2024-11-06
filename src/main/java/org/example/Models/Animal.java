@@ -11,6 +11,8 @@ public class Animal implements Serializable {
     private int nivel;
     private ListInterface<String> listaCaracteristicas;
 
+    private static final long serialVersionUID = 1L;
+
     public Animal(){}
 
     public Animal(String nombre, String caracteristica, boolean animal, int nivel, ListInterface<String> listaCaracteristicas) {

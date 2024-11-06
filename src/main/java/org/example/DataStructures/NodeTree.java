@@ -11,6 +11,7 @@ public class NodeTree implements Serializable {
     private NodeTree right;
     private Boolean caracteristicaAdded;
 
+    private static final long serialVersionUID = 1L;
 
     public NodeTree(Animal dato, NodeTree left, NodeTree right, Boolean caracteristicaAdded){
 
