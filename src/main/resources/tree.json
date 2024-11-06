@@ -20,8 +20,11 @@
         "caracteristica": "reptil",
         "isAnimal": true,
         "nivel": 3,
-        "listaCaracteristicas": ["reptil"]
-      }
+        "listaCaracteristicas": [
+          "reptil"
+        ]
+      },
+      "caracteristicaAdded": true
     }
   },
   "right": {
@@ -38,8 +41,11 @@
         "caracteristica": "caza",
         "isAnimal": true,
         "nivel": 3,
-        "listaCaracteristicas": ["ave"]
-      }
+        "listaCaracteristicas": [
+          "ave"
+        ]
+      },
+      "caracteristicaAdded": false
     },
     "right": {
       "data": {
@@ -47,8 +53,12 @@
         "caracteristica": "cacarea",
         "isAnimal": true,
         "nivel": 3,
-        "listaCaracteristicas": ["ave", "cacarea"]
-      }
+        "listaCaracteristicas": [
+          "ave",
+          "cacarea"
+        ]
+      },
+      "caracteristicaAdded": true
     }
   }
 }

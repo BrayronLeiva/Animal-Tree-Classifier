@@ -15,6 +15,7 @@ import java.util.Map;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 public class Tree implements TreeInterface {
     private NodeTree base;
@@ -143,7 +144,7 @@ public class Tree implements TreeInterface {
                     //una caracteristica que el si tenia algo y tambien en el no tenia algo ya que ese algo es donde estoy justo ahora
                     //por lo que voy a sacar mi caracteristica para hacer un nodo y ponerme yo del lado del si para luego pedir los datos
                     //del nuevo animal y colocarlo del lado del no, justo como estoy yo antes de hacer todo esto
-                    if (pivote.getData().getCaracteristica() != root.getData().getCaracteristica()) {
+                    if (!Objects.equals(pivote.getData().getCaracteristica(), root.getData().getCaracteristica())) {
                         if (!root.getCaracteristicaAdded()){
 
                             System.out.println("Hay que hacer switch ya que vamos a ingresar debajo de un animal");
@@ -387,14 +388,6 @@ public class Tree implements TreeInterface {
         // Registrar el adaptador para ListInterface<String> usando ContenedorAdapter
         gsonBuilder.registerTypeAdapter(new TypeToken<ListInterface<String>>(){}.getType(), new ContenedorAdapter<String>());
 
-        // Registra el InstanceCreator para ListInterface
-        //gsonBuilder.registerTypeAdapter(ListInterface.class, new InstanceCreator<ListInterface<String>>() {
-           // @Override
-            //public ListInterface<String> createInstance(Type type) {
-             //   return new Contenedor<>(); // Retorna una instancia concreta de Contenedor
-           // }
-        //});
-
         Gson gson = gsonBuilder.create(); // Crea el objeto Gson con el registrador
 
         try (FileReader reader = new FileReader("C:\\Users\\Brayron Leiva\\IdeaProjects\\Proyecto1EstructurasDatos\\src\\main\\resources\\tree.json")) {
@@ -410,7 +403,14 @@ public class Tree implements TreeInterface {
 
     // Método para guardar el árbol como JSON usando Gson
     public void saveTreeAsJSON(String filePath) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        // Crear un GsonBuilder y registrar el adaptador para ListInterface
+        GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+
+        // Registrar el adaptador para ListInterface<String> usando ContenedorAdapter
+        gsonBuilder.registerTypeAdapter(new TypeToken<ListInterface<String>>(){}.getType(), new ContenedorAdapter<String>());
+
+        // Crear el objeto Gson con el adaptador registrado
+        Gson gson = gsonBuilder.create();
 
         try (FileWriter writer = new FileWriter(filePath)) {
             // Serializamos el nodo base (raíz) y sus nodos hijos automáticamente

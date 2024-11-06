@@ -1,48 +1,46 @@
 package org.example.Data;
 
-import com.google.gson.TypeAdapter;
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import org.example.DataStructures.Contenedor;
+import org.example.DataStructures.ListInterface;
 import org.example.DataStructures.NodeList;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContenedorAdapter<T extends Serializable> extends TypeAdapter<Contenedor<T>> {
+import java.lang.reflect.Type;
+
+public class ContenedorAdapter<T extends Serializable> implements JsonSerializer<ListInterface<T>>, JsonDeserializer<ListInterface<T>> {
 
     @Override
-    public void write(JsonWriter out, Contenedor<T> contenedor) throws IOException {
-        out.beginArray();
-        NodeList<T> currentNode = contenedor.getDummy().getNext();  // Comienza después del dummy
+    public JsonElement serialize(ListInterface<T> src, Type typeOfSrc, JsonSerializationContext context) {
+        JsonArray jsonArray = new JsonArray();
+        NodeList<T> current = src.getDummy().getNext();
 
-        while (currentNode != null && currentNode.getData() != null) {
-            out.value(currentNode.getData().toString());
-            currentNode = currentNode.getNext();
+        // Serializamos todos los elementos en la lista hasta `back`
+        while (current != null && current != src.getBack()) {
+            jsonArray.add(context. serialize(current.getData()));
+            current = current.getNext();
         }
 
-        out.endArray();
+        return jsonArray;
     }
 
     @Override
-    public Contenedor<T> read(JsonReader in) throws IOException {
-        Contenedor<T> contenedor = new Contenedor<>();
-        List<T> elements = new ArrayList<>();
+    public ListInterface<T> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        ListInterface<T> contenedor = new Contenedor<>();
 
-        in.beginArray();
-        while (in.hasNext()) {
-            // Aquí debes realizar el casting a `T` si los datos en el JSON son del tipo adecuado
-            T item = (T) in.nextString();
-            elements.add(item);
+        JsonArray jsonArray = json.getAsJsonArray();
+        for (JsonElement element : jsonArray) {
+            T item = context.deserialize(element, ((Class<T>) ((ParameterizedType) typeOfT).getActualTypeArguments()[0]));
+            contenedor.addEnd(item);
         }
-        in.endArray();
 
-        // Agregar todos los elementos a la lista doblemente enlazada en `Contenedor`
-        for (T element : elements) {
-            contenedor.addEnd(element);
-        }
         return contenedor;
     }
 }
