@@ -4,16 +4,7 @@
     "caracteristica": "ave",
     "isAnimal": false,
     "nivel": 1,
-    "listaCaracteristicas": {
-      "dummy": {
-        "data": null,
-        "next": null
-      },
-      "back": {
-        "data": null,
-        "previous": null
-      }
-    }
+    "listaCaracteristicas": []
   },
   "left": {
     "data": {
@@ -21,16 +12,7 @@
       "caracteristica": "reptil",
       "isAnimal": false,
       "nivel": 2,
-      "listaCaracteristicas": {
-        "dummy": {
-          "data": null,
-          "next": null
-        },
-        "back": {
-          "data": null,
-          "previous": null
-        }
-      }
+      "listaCaracteristicas": []
     },
     "right": {
       "data": {
@@ -38,22 +20,7 @@
         "caracteristica": "reptil",
         "isAnimal": true,
         "nivel": 3,
-        "listaCaracteristicas": {
-          "dummy": {
-            "data": null,
-            "next": {
-              "data": "reptil",
-              "next": null
-            }
-          },
-          "back": {
-            "data": null,
-            "previous": {
-              "data": "reptil",
-              "previous": null
-            }
-          }
-        }
+        "listaCaracteristicas": ["reptil"]
       }
     }
   },
@@ -63,16 +30,7 @@
       "caracteristica": "cacarea",
       "isAnimal": false,
       "nivel": 2,
-      "listaCaracteristicas": {
-        "dummy": {
-          "data": null,
-          "next": null
-        },
-        "back": {
-          "data": null,
-          "previous": null
-        }
-      }
+      "listaCaracteristicas": []
     },
     "left": {
       "data": {
@@ -80,22 +38,7 @@
         "caracteristica": "caza",
         "isAnimal": true,
         "nivel": 3,
-        "listaCaracteristicas": {
-          "dummy": {
-            "data": null,
-            "next": {
-              "data": "ave",
-              "next": null
-            }
-          },
-          "back": {
-            "data": null,
-            "previous": {
-              "data": "ave",
-              "previous": null
-            }
-          }
-        }
+        "listaCaracteristicas": ["ave"]
       }
     },
     "right": {
@@ -104,28 +47,7 @@
         "caracteristica": "cacarea",
         "isAnimal": true,
         "nivel": 3,
-        "listaCaracteristicas": {
-          "dummy": {
-            "data": null,
-            "next": {
-              "data": "ave",
-              "next": {
-                "data": "cacarea",
-                "next": null
-              }
-            }
-          },
-          "back": {
-            "data": null,
-            "previous": {
-              "data": "cacarea",
-              "previous": {
-                "data": "ave",
-                "previous": null
-              }
-            }
-          }
-        }
+        "listaCaracteristicas": ["ave", "cacarea"]
       }
     }
   }

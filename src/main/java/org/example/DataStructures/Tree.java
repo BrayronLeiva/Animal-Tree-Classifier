@@ -2,6 +2,8 @@ package org.example.DataStructures;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import org.example.Data.ContenedorAdapter;
 import org.example.Models.Animal;
 
 import javax.swing.JOptionPane;
@@ -382,13 +384,16 @@ public class Tree implements TreeInterface {
     public boolean loadTreeFromJson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
 
+        // Registrar el adaptador para ListInterface<String> usando ContenedorAdapter
+        gsonBuilder.registerTypeAdapter(new TypeToken<ListInterface<String>>(){}.getType(), new ContenedorAdapter<String>());
+
         // Registra el InstanceCreator para ListInterface
-        gsonBuilder.registerTypeAdapter(ListInterface.class, new InstanceCreator<ListInterface<String>>() {
-            @Override
-            public ListInterface<String> createInstance(Type type) {
-                return new Contenedor<>(); // Retorna una instancia concreta de Contenedor
-            }
-        });
+        //gsonBuilder.registerTypeAdapter(ListInterface.class, new InstanceCreator<ListInterface<String>>() {
+           // @Override
+            //public ListInterface<String> createInstance(Type type) {
+             //   return new Contenedor<>(); // Retorna una instancia concreta de Contenedor
+           // }
+        //});
 
         Gson gson = gsonBuilder.create(); // Crea el objeto Gson con el registrador
 
