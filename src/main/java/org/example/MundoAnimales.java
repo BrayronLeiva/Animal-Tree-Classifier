@@ -94,11 +94,12 @@ public class MundoAnimales {
         // Verificar si el nombre es válido
         if (nombreAnimal == null || nombreAnimal.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        if(hashMap.containsKey(nombreAnimal)) {
+        } else if (!nombreAnimal.matches("[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+")) {  // Regex para solo letras y espacios
+            JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras y espacios.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (hashMap.containsKey(nombreAnimal)) {
             JOptionPane.showMessageDialog(null, nombreAnimal + ": " + hashMap.get(nombreAnimal).getStreamListCaracteristicas());
             System.out.println(hashMap.get(nombreAnimal).getStreamList());
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "El animal digitado no esta registrado.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -73,6 +73,9 @@ public class Tree implements TreeInterface {
         if (nombreAnimal[0] == null || nombreAnimal[0].trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return false; // Retornamos false si los datos no son válidos
+        } else if (!nombreAnimal[0].matches("[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+")) {  // Regex para solo letras y espacios
+            JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras y espacios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
 
         // Pedir la característica distintiva del animal
@@ -82,6 +85,9 @@ public class Tree implements TreeInterface {
         // Verificar si la característica es válida
         if (caracteristicaAnimal[0] == null || caracteristicaAnimal[0].trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar una característica válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if (!caracteristicaAnimal[0].matches("[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+")) {  // Regex para solo letras y espacios
+            JOptionPane.showMessageDialog(null, "La caracteristica del animal solo debe contener letras y espacios.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -134,6 +140,8 @@ public class Tree implements TreeInterface {
                         root.setLeft(animalNodo); // Ingresar a la izquierda del nodo actual
                         inorder();
                         play();
+                    }else{
+                        quieresJugarOtraVez();
                     }
                     //fin de captura de datos
 
@@ -170,6 +178,8 @@ public class Tree implements TreeInterface {
                                 carac_nodo.setLeft(nodeTreeAnimal);//pongo de no al animal nuevo que no le he agregado la caracteristica
                                 inorder();
                                 play();
+                            }else{
+                                quieresJugarOtraVez();
                             }
 
                     }
@@ -197,6 +207,8 @@ public class Tree implements TreeInterface {
                                 //carac_nodo.setLeft(new Node(animal, null, null, carac_nodo));
                                 inorder();
                                 play();
+                            }else{
+                                quieresJugarOtraVez();
                             }
 
                         }
@@ -226,6 +238,8 @@ public class Tree implements TreeInterface {
                             //root.setParent(animalNodeCaracteTree);
                             inorder();
                             play();
+                        }else{
+                            quieresJugarOtraVez();
                         }
 
                     }
