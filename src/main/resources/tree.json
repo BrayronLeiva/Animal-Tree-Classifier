@@ -14,6 +14,80 @@
       "nivel": 2,
       "listaCaracteristicas": []
     },
+    "left": {
+      "data": {
+        "nombre": "1",
+        "caracteristica": "acuatico",
+        "isAnimal": false,
+        "nivel": 3
+      },
+      "left": {
+        "data": {
+          "nombre": "gato",
+          "caracteristica": "maulla",
+          "isAnimal": true,
+          "nivel": 4,
+          "listaCaracteristicas": [
+            "maulla"
+          ]
+        },
+        "caracteristicaAdded": false
+      },
+      "right": {
+        "data": {
+          "nombre": "",
+          "caracteristica": "tiburon",
+          "isAnimal": false,
+          "nivel": 4
+        },
+        "left": {
+          "data": {
+            "nombre": "",
+            "caracteristica": "gordo",
+            "isAnimal": false,
+            "nivel": 5
+          },
+          "left": {
+            "data": {
+              "nombre": "ballena",
+              "caracteristica": "acuatico",
+              "isAnimal": true,
+              "nivel": 6,
+              "listaCaracteristicas": [
+                "acuatico"
+              ]
+            },
+            "caracteristicaAdded": true
+          },
+          "right": {
+            "data": {
+              "nombre": "morsa",
+              "caracteristica": "gordo",
+              "isAnimal": true,
+              "nivel": 6,
+              "listaCaracteristicas": [
+                "acuatico",
+                "gordo"
+              ]
+            },
+            "caracteristicaAdded": true
+          }
+        },
+        "right": {
+          "data": {
+            "nombre": "peligroso",
+            "caracteristica": "tiburon",
+            "isAnimal": true,
+            "nivel": 5,
+            "listaCaracteristicas": [
+              "acuatico",
+              "tiburon"
+            ]
+          },
+          "caracteristicaAdded": true
+        }
+      }
+    },
     "right": {
       "data": {
         "nombre": "Lagarto",
@@ -49,16 +123,38 @@
     },
     "right": {
       "data": {
-        "nombre": "gallina",
-        "caracteristica": "cacarea",
-        "isAnimal": true,
-        "nivel": 3,
-        "listaCaracteristicas": [
-          "ave",
-          "cacarea"
-        ]
+        "nombre": "",
+        "caracteristica": "grande",
+        "isAnimal": false,
+        "nivel": 3
       },
-      "caracteristicaAdded": true
+      "left": {
+        "data": {
+          "nombre": "gallina",
+          "caracteristica": "cacarea",
+          "isAnimal": true,
+          "nivel": 4,
+          "listaCaracteristicas": [
+            "ave",
+            "cacarea"
+          ]
+        },
+        "caracteristicaAdded": true
+      },
+      "right": {
+        "data": {
+          "nombre": "gallina monte",
+          "caracteristica": "grande",
+          "isAnimal": true,
+          "nivel": 4,
+          "listaCaracteristicas": [
+            "ave",
+            "cacarea",
+            "grande"
+          ]
+        },
+        "caracteristicaAdded": true
+      }
     }
   }
 }

@@ -108,7 +108,7 @@ public class Contenedor<T extends Serializable> implements ListInterface<T>, Ser
         if(root.getData()!=null) { //por si entra back
             //System.out.println("Agregando: " + root.getData().toString());
             if(root.getNext().getData()!=null) {
-                return root.getData().toString() + " , " + getStreamListRecursive(root.getNext());
+                return root.getData().toString() + " , " + getStreamListRecursiveCaracteristicas(root.getNext());
             }else{
                 return root.getData().toString();
             }
