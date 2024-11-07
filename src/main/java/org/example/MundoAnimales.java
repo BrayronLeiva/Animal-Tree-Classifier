@@ -4,89 +4,59 @@ import org.example.DataStructures.ListInterface;
 import org.example.DataStructures.Tree;
 import org.example.DataStructures.TreeInterface;
 import org.example.Models.Animal;
+import org.example.Presentation.MenuGUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Map;
 
 public class MundoAnimales {
 
-    public MundoAnimales() {}
     private Map<String, ListInterface<String>> hashMap;
+    private ListInterface<Animal> animalContenedor;
+    private TreeInterface tree;
+
+    public MundoAnimales() {
+        // Configurar el estilo de los cuadros de diálogo
+        UIManager.put("OptionPane.background", new Color(245, 245, 245)); // Gris claro
+        UIManager.put("Panel.background", new Color(245, 245, 245)); // Gris claro
+        UIManager.put("OptionPane.messageForeground", new Color(60, 60, 60)); // Gris oscuro
+        UIManager.put("Button.background", new Color(102, 153, 173)); // Verde suave
+        UIManager.put("Button.foreground", Color.WHITE); // Texto en blanco
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 14));
+
+
+    }
+
     public void ejecutarJuego() {
-        TreeInterface tree = new Tree();
-        if(!tree.loadTree()){
+        tree = new Tree();
+        if (!tree.loadTree()) {
             return;
         }
         tree.inorder();
         tree.play();
-        ListInterface<Animal> animalContenedor;
         animalContenedor = tree.convertTreeIntoList();
         hashMap = tree.convertTreeIntoHashMap();
 
-        boolean continuar = true;
-        while (continuar) {
-            // Mostrar el menú de opciones
-            String opcion = JOptionPane.showInputDialog(null,
-                    "Seleccione una opción:\n" +
-                            "1. Ordenar lista (Sort)\n" +
-                            "2. Revertir lista (Reverse)\n" +
-                            "3. Imprimir lista (Display)\n" +
-                            "4. Buscar elemento (Features)\n" +
-                            "5. Salir", "Menú de opciones", JOptionPane.QUESTION_MESSAGE);
-
-            if (opcion != null) {
-                switch (opcion) {
-                    case "1":
-                        ordenarLista(animalContenedor);
-                        break;
-                    case "2":
-                        revertirLista(animalContenedor);
-                        break;
-                    case "3":
-                        imprimirLista(animalContenedor);
-                        break;
-                    case "4":
-                        buscarElemento();
-                        break;
-                    case "5":
-                        continuar = false; // Salir del ciclo
-                        salir(tree);
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Opción no válida. Intente de nuevo.");
-                        break;
-                }
-            } else {
-                continuar = false; // Salir si cancelan el cuadro de diálogo
-            }
-        }
-
+        // Crear y mostrar el menú gráfico, pasando esta instancia de MundoAnimales
+        MenuGUI menu = new MenuGUI(this);
+        menu.mostrarMenu();
     }
 
-    private void salir(TreeInterface tree){
-        int save = JOptionPane.showConfirmDialog(null,
-                "Quieres salvar el arbol" + "?",
-                "Pregunta",
-                JOptionPane.YES_NO_OPTION);;
-        if(save == JOptionPane.YES_NO_OPTION){
-            tree.guardarArbol();
-        }
-        JOptionPane.showMessageDialog(null, "¡Hasta luego!");
-    }
-    private void ordenarLista(ListInterface<Animal> animalContenedor) {
+    public void ordenarLista() {
         animalContenedor.quickSort();
     }
 
-    private void revertirLista(ListInterface<Animal> animalContenedor) {
+    public void revertirLista() {
         animalContenedor.reverse();
     }
 
-    private void imprimirLista(ListInterface<Animal> animalContenedor) {
+    public void imprimirLista() {
         System.out.println(animalContenedor.getStreamList());
         JOptionPane.showMessageDialog(null, "Lista actual: " + animalContenedor.getStreamList());
     }
 
-    private void buscarElemento() {
+    public void buscarElemento() {
         // Pedir el nombre del animal
         String nombreAnimal = JOptionPane.showInputDialog(null, "Digite el nombre del animal:",
                 "Nuevo animal", JOptionPane.QUESTION_MESSAGE);
@@ -102,6 +72,15 @@ public class MundoAnimales {
         } else {
             JOptionPane.showMessageDialog(null, "El animal digitado no esta registrado.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void salir() {
+        int save = JOptionPane.showConfirmDialog(null,
+                "¿Quieres salvar el árbol?", "Pregunta", JOptionPane.YES_NO_OPTION);
+        if (save == JOptionPane.YES_NO_OPTION) {
+            tree.guardarArbol();
+        }
+        JOptionPane.showMessageDialog(null, "¡Hasta luego!");
     }
 }
 
