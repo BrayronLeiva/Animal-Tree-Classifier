@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import org.example.Data.ContenedorAdapter;
-import org.example.Models.Animal;
+import org.example.Logic.Animal;
 
 import javax.swing.JOptionPane;
 import java.io.FileReader;
@@ -12,9 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import com.google.gson.GsonBuilder;
-import com.google.gson.InstanceCreator;
-import java.lang.reflect.Type;
 import java.util.Objects;
 
 public class Tree implements TreeInterface {

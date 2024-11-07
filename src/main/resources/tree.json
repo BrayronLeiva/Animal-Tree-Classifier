@@ -17,57 +17,64 @@
     "left": {
       "data": {
         "nombre": "1",
-        "caracteristica": "acuatico",
+        "caracteristica": "mamifero",
         "isAnimal": false,
         "nivel": 3
       },
       "left": {
         "data": {
-          "nombre": "gato",
-          "caracteristica": "maulla",
-          "isAnimal": true,
-          "nivel": 4,
-          "listaCaracteristicas": [
-            "maulla"
-          ]
-        },
-        "caracteristicaAdded": false
-      },
-      "right": {
-        "data": {
-          "nombre": "",
-          "caracteristica": "tiburon",
+          "nombre": "1",
+          "caracteristica": "pez",
           "isAnimal": false,
           "nivel": 4
         },
         "left": {
           "data": {
-            "nombre": "",
-            "caracteristica": "gordo",
+            "nombre": "1",
+            "caracteristica": "invertebrado",
             "isAnimal": false,
             "nivel": 5
           },
           "left": {
             "data": {
-              "nombre": "ballena",
-              "caracteristica": "acuatico",
-              "isAnimal": true,
-              "nivel": 6,
-              "listaCaracteristicas": [
-                "acuatico"
-              ]
+              "nombre": "1",
+              "caracteristica": "anfibio",
+              "isAnimal": false,
+              "nivel": 6
             },
-            "caracteristicaAdded": true
+            "left": {
+              "data": {
+                "nombre": "Culebra",
+                "caracteristica": "pica",
+                "isAnimal": true,
+                "nivel": 7,
+                "listaCaracteristicas": [
+                  "pica"
+                ]
+              },
+              "caracteristicaAdded": false
+            },
+            "right": {
+              "data": {
+                "nombre": "Rana",
+                "caracteristica": "anfibio",
+                "isAnimal": true,
+                "nivel": 7,
+                "listaCaracteristicas": [
+                  "anfibio"
+                ]
+              },
+              "caracteristicaAdded": true
+            }
           },
           "right": {
             "data": {
-              "nombre": "morsa",
-              "caracteristica": "gordo",
+              "nombre": "Araña",
+              "caracteristica": "invertebrado",
               "isAnimal": true,
               "nivel": 6,
               "listaCaracteristicas": [
-                "acuatico",
-                "gordo"
+                "invertebrado"
               ]
             },
             "caracteristicaAdded": true
@@ -75,18 +82,74 @@
         },
         "right": {
           "data": {
-            "nombre": "peligroso",
-            "caracteristica": "tiburon",
+            "nombre": "beta",
+            "caracteristica": "pez",
             "isAnimal": true,
             "nivel": 5,
             "listaCaracteristicas": [
-              "acuatico",
-              "tiburon"
+              "pez"
+            ]
+          },
+          "caracteristicaAdded": true
+        }
+
+      },
+      "right": {
+        "data": {
+          "nombre": "1",
+          "caracteristica": "acuatico",
+          "isAnimal": false,
+          "nivel": 4
+        },
+        "left": {
+          "data": {
+            "nombre": "1",
+            "caracteristica": "maulla",
+            "isAnimal": false,
+            "nivel": 5
+          },
+          "left": {
+            "data": {
+              "nombre": "Perro",
+              "caracteristica": "Ladra",
+              "isAnimal": true,
+              "nivel": 6,
+              "listaCaracteristicas": [
+                "mamifero"
+              ]
+            },
+            "caracteristicaAdded": false
+          },
+          "right": {
+            "data": {
+              "nombre": "Gato",
+              "caracteristica": "maulla",
+              "isAnimal": true,
+              "nivel": 6,
+              "listaCaracteristicas": [
+                "mamifero",
+                "maulla"
+              ]
+            },
+            "caracteristicaAdded": true
+          }
+        },
+        "right": {
+          "data": {
+            "nombre": "Ballena",
+            "caracteristica": "acuatico",
+            "isAnimal": true,
+            "nivel": 5,
+            "listaCaracteristicas": [
+              "mamifero",
+              "acuatico"
             ]
           },
           "caracteristicaAdded": true
         }
       }
+
+
     },
     "right": {
       "data": {
@@ -123,38 +186,16 @@
     },
     "right": {
       "data": {
-        "nombre": "",
-        "caracteristica": "grande",
-        "isAnimal": false,
-        "nivel": 3
+        "nombre": "gallina",
+        "caracteristica": "cacarea",
+        "isAnimal": true,
+        "nivel": 4,
+        "listaCaracteristicas": [
+          "ave",
+          "cacarea"
+        ]
       },
-      "left": {
-        "data": {
-          "nombre": "gallina",
-          "caracteristica": "cacarea",
-          "isAnimal": true,
-          "nivel": 4,
-          "listaCaracteristicas": [
-            "ave",
-            "cacarea"
-          ]
-        },
-        "caracteristicaAdded": true
-      },
-      "right": {
-        "data": {
-          "nombre": "gallina monte",
-          "caracteristica": "grande",
-          "isAnimal": true,
-          "nivel": 4,
-          "listaCaracteristicas": [
-            "ave",
-            "cacarea",
-            "grande"
-          ]
-        },
-        "caracteristicaAdded": true
-      }
+      "caracteristicaAdded": true
     }
   }
 }

@@ -1,4 +1,4 @@
-package org.example.Models;
+package org.example.Logic;
 
 import org.example.DataStructures.ListInterface;
 

@@ -2,12 +2,10 @@ package org.example.Presentation;
 
 
 
-import org.example.MundoAnimales;
+import org.example.Logic.MundoAnimales;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MenuGUI {
     private JFrame frame;

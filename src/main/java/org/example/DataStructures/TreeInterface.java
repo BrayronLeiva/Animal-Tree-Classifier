@@ -1,6 +1,6 @@
 package org.example.DataStructures;
 
-import org.example.Models.Animal;
+import org.example.Logic.Animal;
 
 import java.util.Map;
 

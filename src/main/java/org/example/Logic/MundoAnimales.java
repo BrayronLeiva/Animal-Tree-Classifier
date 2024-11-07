@@ -1,9 +1,9 @@
-package org.example;
+package org.example.Logic;
 
 import org.example.DataStructures.ListInterface;
 import org.example.DataStructures.Tree;
 import org.example.DataStructures.TreeInterface;
-import org.example.Models.Animal;
+import org.example.Logic.Animal;
 import org.example.Presentation.MenuGUI;
 
 import javax.swing.*;
