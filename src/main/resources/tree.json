@@ -3,16 +3,14 @@
     "nombre": "ave",
     "caracteristica": "ave",
     "isAnimal": false,
-    "nivel": 1,
-    "listaCaracteristicas": []
+    "nivel": 1
   },
   "left": {
     "data": {
       "nombre": "",
       "caracteristica": "reptil",
       "isAnimal": false,
-      "nivel": 2,
-      "listaCaracteristicas": []
+      "nivel": 2
     },
     "left": {
       "data": {
@@ -47,10 +45,7 @@
                 "nombre": "Culebra",
                 "caracteristica": "pica",
                 "isAnimal": true,
-                "nivel": 7,
-                "listaCaracteristicas": [
-                  "pica"
-                ]
+                "nivel": 7
               },
               "caracteristicaAdded": false
             },
@@ -59,10 +54,7 @@
                 "nombre": "Rana",
                 "caracteristica": "anfibio",
                 "isAnimal": true,
-                "nivel": 7,
-                "listaCaracteristicas": [
-                  "anfibio"
-                ]
+                "nivel": 7
               },
               "caracteristicaAdded": true
             }
@@ -72,10 +64,7 @@
               "nombre": "Araña",
               "caracteristica": "invertebrado",
               "isAnimal": true,
-              "nivel": 6,
-              "listaCaracteristicas": [
-                "invertebrado"
-              ]
+              "nivel": 6
             },
             "caracteristicaAdded": true
           }
@@ -85,10 +74,7 @@
             "nombre": "beta",
             "caracteristica": "pez",
             "isAnimal": true,
-            "nivel": 5,
-            "listaCaracteristicas": [
-              "pez"
-            ]
+            "nivel": 5
           },
           "caracteristicaAdded": true
         }
@@ -113,10 +99,7 @@
               "nombre": "Perro",
               "caracteristica": "Ladra",
               "isAnimal": true,
-              "nivel": 6,
-              "listaCaracteristicas": [
-                "mamifero"
-              ]
+              "nivel": 6
             },
             "caracteristicaAdded": false
           },
@@ -125,11 +108,7 @@
               "nombre": "Gato",
               "caracteristica": "maulla",
               "isAnimal": true,
-              "nivel": 6,
-              "listaCaracteristicas": [
-                "mamifero",
-                "maulla"
-              ]
+              "nivel": 6
             },
             "caracteristicaAdded": true
           }
@@ -139,11 +118,7 @@
             "nombre": "Ballena",
             "caracteristica": "acuatico",
             "isAnimal": true,
-            "nivel": 5,
-            "listaCaracteristicas": [
-              "mamifero",
-              "acuatico"
-            ]
+            "nivel": 5
           },
           "caracteristicaAdded": true
         }
@@ -156,10 +131,7 @@
         "nombre": "Lagarto",
         "caracteristica": "reptil",
         "isAnimal": true,
-        "nivel": 3,
-        "listaCaracteristicas": [
-          "reptil"
-        ]
+        "nivel": 3
       },
       "caracteristicaAdded": true
     }
@@ -169,18 +141,14 @@
       "nombre": "cacarea",
       "caracteristica": "cacarea",
       "isAnimal": false,
-      "nivel": 2,
-      "listaCaracteristicas": []
+      "nivel": 2
     },
     "left": {
       "data": {
         "nombre": "aguila",
         "caracteristica": "caza",
         "isAnimal": true,
-        "nivel": 3,
-        "listaCaracteristicas": [
-          "ave"
-        ]
+        "nivel": 3
       },
       "caracteristicaAdded": false
     },
@@ -189,11 +157,7 @@
         "nombre": "gallina",
         "caracteristica": "cacarea",
         "isAnimal": true,
-        "nivel": 4,
-        "listaCaracteristicas": [
-          "ave",
-          "cacarea"
-        ]
+        "nivel": 4
       },
       "caracteristicaAdded": true
     }

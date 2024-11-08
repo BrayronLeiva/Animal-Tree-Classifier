@@ -1,9 +1,8 @@
 package org.example.Logic;
 
-import org.example.DataStructures.ListInterface;
-import org.example.DataStructures.Tree;
-import org.example.DataStructures.TreeInterface;
-import org.example.Logic.Animal;
+import org.example.Logic.DataStructures.ListInterface;
+import org.example.Logic.DataStructures.Tree;
+import org.example.Logic.DataStructures.TreeInterface;
 import org.example.Presentation.MenuGUI;
 
 import javax.swing.*;
@@ -36,7 +35,7 @@ public class MundoAnimales {
         tree.inorder();
         tree.play();
         animalContenedor = tree.convertTreeIntoList();
-        hashMap = tree.convertTreeIntoHashMap();
+        hashMap = tree.convertTreeIntoHashMap(animalContenedor);
 
         // Crear y mostrar el menú gráfico, pasando esta instancia de MundoAnimales
         MenuGUI menu = new MenuGUI(this);

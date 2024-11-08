@@ -1,11 +1,10 @@
-package org.example.DataStructures;
+package org.example.Logic.DataStructures;
 
 import org.example.Logic.Animal;
 
 import java.io.Serializable;
 
-public class Contenedor<T extends Serializable> implements ListInterface<T>, Serializable {
-    private static final long serialVersionUID = 1L; // Añadir un UID para la serialización
+public class Contenedor<T> implements ListInterface<T> {
     private NodeList<T> dummy;  // Ahora es un nodo de tipo genérico <T>
     private NodeList<T> back;   // También de tipo genérico <T>
 
@@ -41,6 +40,7 @@ public class Contenedor<T extends Serializable> implements ListInterface<T>, Ser
         //System.out.println("Index de " + nodeList.getData().toString() + " " + this.getIndexOfNode(nodeList));
 
     }
+
     // Getter y setter para dummy
     @Override
     public NodeList<T> getDummy() {
@@ -343,5 +343,12 @@ public class Contenedor<T extends Serializable> implements ListInterface<T>, Ser
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+
+    @Override
+    public NodeList<T> pop() {
+        System.out.println("Metodo no es de Contenedor");
+        return null;
     }
 }

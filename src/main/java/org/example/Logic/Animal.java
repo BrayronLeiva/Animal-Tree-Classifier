@@ -1,6 +1,8 @@
 package org.example.Logic;
 
-import org.example.DataStructures.ListInterface;
+import org.example.Logic.DataStructures.Contenedor;
+import org.example.Logic.DataStructures.ListInterface;
+import org.example.Logic.DataStructures.NodeList;
 
 import java.io.Serializable;
 
@@ -15,23 +17,15 @@ public class Animal implements Serializable {
 
     public Animal(){}
 
-    public Animal(String nombre, String caracteristica, boolean animal, int nivel, ListInterface<String> listaCaracteristicas) {
-        isAnimal = animal;
+    public Animal(String nombre, String caracteristica, boolean animal, int nivel) {
+        this.isAnimal = animal;
         this.nombre = nombre;
         this.caracteristica = caracteristica;
         this.nivel = nivel;
-        this.listaCaracteristicas = listaCaracteristicas;
+        this.listaCaracteristicas = new Contenedor<String>();
         if(!listaCaracteristicas.contains(caracteristica)){
             listaCaracteristicas.addEnd(caracteristica);
         }
-
-    }
-
-    public Animal(String nombre, String caracteristica, boolean animal, int nivel) {
-        isAnimal = animal;
-        this.nombre = nombre;
-        this.caracteristica = caracteristica;
-        this.nivel = nivel;
 
     }
 
@@ -72,6 +66,16 @@ public class Animal implements Serializable {
             return "es "+ nombre;
         }else{
             return caracteristica;
+        }
+    }
+
+    public void setearCaracteristicas(ListInterface<String> otrasCaracteristicas){
+        NodeList<String> actual = otrasCaracteristicas.getDummy().getNext();
+        for (int i = 0; i < otrasCaracteristicas.getSize() && actual!=otrasCaracteristicas.getBack(); i++) {
+            if(!listaCaracteristicas.contains(actual.getData())) {
+                listaCaracteristicas.addFront(actual.getData());
+            }
+            actual = actual.getNext();
         }
     }
 

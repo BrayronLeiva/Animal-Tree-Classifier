@@ -1,4 +1,4 @@
-package org.example.DataStructures;
+package org.example.Logic.DataStructures;
 
 import org.example.Logic.Animal;
 

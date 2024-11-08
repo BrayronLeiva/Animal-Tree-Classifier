@@ -1,4 +1,4 @@
-package org.example.DataStructures;
+package org.example.Logic.DataStructures;
 
 import org.example.Logic.Animal;
 
@@ -13,11 +13,11 @@ public interface TreeInterface {
     void printTreeFormat();
     boolean isEmpty();
     void play();
-    void playRecursive(NodeTree root, NodeTree parent, int nivel, ListInterface<String> lista);
+    void playRecursive(NodeTree root, NodeTree parent, int nivel);
 
     Contenedor<Animal> convertTreeIntoList();
 
-    Map<String, ListInterface<String>> convertTreeIntoHashMap();
+    Map<String, ListInterface<String>> convertTreeIntoHashMap(ListInterface<Animal> contenedorAnimales);
 
     public void guardarArbol();
 }

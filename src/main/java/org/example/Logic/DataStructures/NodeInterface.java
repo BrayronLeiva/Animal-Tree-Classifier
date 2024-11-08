@@ -1,4 +1,4 @@
-package org.example.DataStructures;
+package org.example.Logic.DataStructures;
 
 public interface NodeInterface<T> {
     T getData();

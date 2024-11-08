@@ -1,12 +1,14 @@
-package org.example.DataStructures;
+package org.example.Logic.DataStructures;
 
 import java.io.Serializable;
 
-public interface ListInterface<T extends Serializable> extends Serializable {
+public interface ListInterface<T> {
 
     void addFront(T obj);
 
     void addEnd(T obj);
+
+    NodeList<T> pop();
 
     NodeList<T> getDummy();
 
@@ -17,6 +19,7 @@ public interface ListInterface<T extends Serializable> extends Serializable {
 
     void setBack(NodeList<T> back);
 
+    int getSize();
     void printList();
     String getStreamList();
 

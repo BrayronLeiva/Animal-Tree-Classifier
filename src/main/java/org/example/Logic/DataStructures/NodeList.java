@@ -1,9 +1,8 @@
-package org.example.DataStructures;
+package org.example.Logic.DataStructures;
 
 import java.io.Serializable;
 
-public class NodeList<T extends Serializable> implements Serializable {
-    private static final long serialVersionUID = 1L; // Añadir un UID para la serialización
+public class NodeList<T> {
     private NodeList<T> previous;  // Ahora es un nodo de tipo genérico <T>
     private NodeList<T> next;   // También de tipo genérico <T>
     private T data;             // El dato ahora es de tipo genérico
