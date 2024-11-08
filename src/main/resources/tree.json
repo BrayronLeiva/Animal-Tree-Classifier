@@ -138,28 +138,11 @@
   },
   "right": {
     "data": {
-      "nombre": "cacarea",
-      "caracteristica": "cacarea",
-      "isAnimal": false,
+      "nombre": "aguila",
+      "caracteristica": "ave",
+      "isAnimal": true,
       "nivel": 2
     },
-    "left": {
-      "data": {
-        "nombre": "aguila",
-        "caracteristica": "caza",
-        "isAnimal": true,
-        "nivel": 3
-      },
-      "caracteristicaAdded": false
-    },
-    "right": {
-      "data": {
-        "nombre": "gallina",
-        "caracteristica": "cacarea",
-        "isAnimal": true,
-        "nivel": 4
-      },
-      "caracteristicaAdded": true
-    }
+    "caracteristicaAdded": true
   }
 }

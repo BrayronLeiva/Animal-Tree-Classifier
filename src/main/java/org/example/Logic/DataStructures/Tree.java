@@ -335,7 +335,9 @@ public class Tree implements TreeInterface {
         if (base != null) {
             NodeList<Animal> aux = contenedorAnimales.getDummy().getNext();
             while (aux!=contenedorAnimales.getBack()) {
-                hashMap.put(aux.getData().getNombre(), aux.getData().getListaCaracteristicas());
+                String key = aux.getData().getNombre().toLowerCase();
+                System.out.println("Key: " + key);
+                hashMap.put(key, aux.getData().getListaCaracteristicas());
                 aux = aux.getNext();
             }
         }
