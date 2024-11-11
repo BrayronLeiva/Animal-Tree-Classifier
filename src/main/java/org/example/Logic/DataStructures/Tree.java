@@ -412,7 +412,7 @@ public class Tree implements TreeInterface {
 
         Gson gson = gsonBuilder.create(); // Crea el objeto Gson con el registrador
 
-        try (FileReader reader = new FileReader("C:\\Users\\Brayron Leiva\\IdeaProjects\\Proyecto1EstructurasDatos\\src\\main\\resources\\tree.json")) {
+        try (FileReader reader = new FileReader("src/main/resources/tree.json")) {
             // Convertir el JSON en el nodo raíz del árbol
             base = gson.fromJson(reader, NodeTree.class);
             return true;
@@ -448,7 +448,7 @@ public class Tree implements TreeInterface {
 
     @Override
     public void guardarArbol() {
-        saveTreeAsJSON("C:\\Users\\Brayron Leiva\\IdeaProjects\\Proyecto1EstructurasDatos\\src\\main\\resources\\tree.json");
+        saveTreeAsJSON("src/main/resources/tree.json");
     }
     @Override
     public void cleanTree() {

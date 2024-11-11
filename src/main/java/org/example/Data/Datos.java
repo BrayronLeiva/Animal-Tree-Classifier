@@ -1,4 +1,5 @@
 package org.example.Data;
 
 public class Datos {
+    //ESTA CLASE SE IBA A ELIMINAR PERO POR RAZONES DE QUE EL IDE INDICA QUE ES RIESGOSO NO SE HIZO
 }
