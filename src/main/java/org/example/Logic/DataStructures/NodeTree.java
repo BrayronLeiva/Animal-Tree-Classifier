@@ -1,14 +1,18 @@
 package org.example.Logic.DataStructures;
 
+import com.google.gson.annotations.Expose;
 import org.example.Logic.Animal;
 
 import java.io.Serializable;
 
 public class NodeTree implements Serializable {
-
+    @Expose
     private Animal data;
+    @Expose
     private NodeTree left;
+    @Expose
     private NodeTree right;
+    @Expose
     private Boolean caracteristicaAdded;
 
     private static final long serialVersionUID = 1L;
@@ -59,4 +63,11 @@ public class NodeTree implements Serializable {
     public Boolean getCaracteristicaAdded() {return caracteristicaAdded;}
 
     public void setCaracteristicaAdded(Boolean caracteristicaAdded) {this.caracteristicaAdded = caracteristicaAdded;}
+
+    public boolean hasLeft(){
+        return left!=null;
+    }
+    public boolean hasRight(){
+        return right!=null;
+    }
 }

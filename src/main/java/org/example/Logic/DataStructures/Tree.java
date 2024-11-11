@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import org.example.Logic.Animal;
+import org.w3c.dom.Node;
 
 import javax.swing.JOptionPane;
 import java.io.FileReader;
@@ -22,7 +23,7 @@ public class Tree implements TreeInterface {
         if(isEmpty()){
             System.out.println("El arbol esta vacio ingrese un animal: ");
         }else{
-            playRecursive(base, null,1);
+            playRecursive(base, 1);
         }
     }
 
@@ -85,7 +86,7 @@ public class Tree implements TreeInterface {
         return true; // Retornamos true si los datos fueron capturados correctamente
     }
 
-    public void playRecursive(NodeTree root, NodeTree pivote, int nivel){
+    public void playRecursive(NodeTree root, int nivel){
         String[] nombreAnimal = new String[1];
         String[] caracteristicaAnimal = new String[1];
         // Mostramos un cuadro de diálogo con botones de opción
@@ -99,7 +100,7 @@ public class Tree implements TreeInterface {
                 quieresJugarOtraVez();
 
             } else{
-                playRecursive(root.getRight(), root, nivel+1); // si es si y no se trata de un animal
+                playRecursive(root.getRight(), nivel+1); // si es si y no se trata de un animal
             }
 
         }
@@ -110,7 +111,7 @@ public class Tree implements TreeInterface {
 
             if(root.getLeft()!=null) {
 
-                playRecursive(root.getLeft(), root, nivel+1);
+                playRecursive(root.getLeft(), nivel+1);
 
             }else {
                 //caso de que estoy en una caracteristica y el lado izquierdo esta vacio, por lo cual si hay una caracteristica es que del lado
@@ -142,24 +143,23 @@ public class Tree implements TreeInterface {
                     //una caracteristica que el si tenia algo y tambien en el no tenia algo ya que ese algo es donde estoy justo ahora
                     //por lo que voy a sacar mi caracteristica para hacer un nodo y ponerme yo del lado del si para luego pedir los datos
                     //del nuevo animal y colocarlo del lado del no, justo como estoy yo antes de hacer todo esto
-                    if (!Objects.equals(pivote.getData().getCaracteristica(), root.getData().getCaracteristica())) {
+                    if (!Objects.equals(this.getPivote(root).getData().getCaracteristica(), root.getData().getCaracteristica())) {
                         if (!root.getCaracteristicaAdded()){
-
-                            System.out.println("Hay que hacer switch ya que vamos a ingresar debajo de un animal");
-
-                            Animal carac_animal = new Animal("1", root.getData().getCaracteristica(), false, nivel);//va ocupar mi posicion
-                            NodeTree carac_nodo = new NodeTree(carac_animal, null, null);
-
-                            pivote.setLeft(carac_nodo); //padre de ballena en este momento que era la caract que no cumple ballena //la cambiamos por mi caracteristica
-                            carac_nodo.setRight(root); //como es mi caracteristica me voy a si
-                            //root.setParent(carac_nodo); //mi padre ahora va ser esa caracteristica mia
-                            //decir que la caracteristica de root = por ejemplo ballena esta agregada
-                            root.setCaracteristicaAdded(true);
-                            root.getData().setNivel(nivel+1);//voy a estar 1 mas abajo de donde estoy actualmente
 
                             showMessage("¡No hay informacion de este animal vamos a agregarla! #2");
 
                             if (capturarDatosAnimal(nombreAnimal, caracteristicaAnimal)) {
+
+                                Animal carac_animal = new Animal("1", root.getData().getCaracteristica(), false, nivel);//va ocupar mi posicion
+                                NodeTree carac_nodo = new NodeTree(carac_animal, null, null);
+
+                                this.getPivote(root).setLeft(carac_nodo); //padre de ballena en este momento que era la caract que no cumple ballena //la cambiamos por mi caracteristica
+                                carac_nodo.setRight(root); //como es mi caracteristica me voy a si
+                                //root.setParent(carac_nodo); //mi padre ahora va ser esa caracteristica mia
+                                //decir que la caracteristica de root = por ejemplo ballena esta agregada
+                                root.setCaracteristicaAdded(true);
+                                root.getData().setNivel(nivel+1);//voy a estar 1 mas abajo de donde estoy actualmente
+
                                 // Mostrar la información capturada
                                 showNewAnimalAdd(nombreAnimal[0],caracteristicaAnimal[0]);
                                 //el mae que va la izquierda por que es no
@@ -175,7 +175,7 @@ public class Tree implements TreeInterface {
                     }
                         else {
                             //caso caracteristica agregada pero queda en la parte superior por lo que no se puede agregar doble caracteristica
-                            //caso en que ponga a la izquierda de mi padre (yo como animal) a la caracteristica del nuevo, por lo que del lado del si
+                            //caso en que pongo a la izquierda de mi padre (yo como animal) a la caracteristica del nuevo, por lo que del lado del si
                             //de esa caracteristica estaria el nuevo animal y del lado del no estaria yo o mi nodo
                             showMessage("¡No hay informacion de este animal vamos a agregarla #4!");
                             if (capturarDatosAnimal(nombreAnimal, caracteristicaAnimal)) {
@@ -187,7 +187,7 @@ public class Tree implements TreeInterface {
                                 //NodeTree parent = root.getParent(); //mi padre
                                 NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null);//nodo carac del nuevo
 
-                                pivote.setLeft(animalNodeCaracteTree); //left de mi padre ahora es la nueva carac del nuevo animal
+                                this.getPivote(root).setLeft(animalNodeCaracteTree); //left de mi padre ahora es la nueva carac del nuevo animal
                                 NodeTree animalObj = new NodeTree(animal,null,null, true);// nodo del nuevo animal
                                 animalNodeCaracteTree.setRight(animalObj);//en el si de la carac esta el nuevo animal
                                 animalNodeCaracteTree.setLeft(root); //como no yo - ya que mi carac esta mas arriba y no se puede poner doble
@@ -220,7 +220,7 @@ public class Tree implements TreeInterface {
 
                             //NodeTree parent = root.getParent();
                             NodeTree animalNodeCaracteTree = new NodeTree(animalCaracteristica,null,null);
-                            pivote.setRight(animalNodeCaracteTree);
+                            this.getPivote(root).setRight(animalNodeCaracteTree);
                             NodeTree animalObj = new NodeTree(animal,null,null, true);
                             animalNodeCaracteTree.setRight(animalObj);
                             animalNodeCaracteTree.setLeft(root);
@@ -239,11 +239,9 @@ public class Tree implements TreeInterface {
 
     }
 
-
     public boolean loadTree(){
         return loadTreeFromJson();
     }
-
 
     @Override
     public void inorder() {
@@ -320,9 +318,6 @@ public class Tree implements TreeInterface {
                 Animal nuevo = new Animal(aux.getNombre(),aux.getCaracteristica(),aux.isAnimal(),aux.getNivel());
                 nuevo.setearCaracteristicas(stackCaracteristicas);
                 animalContenedor.addEnd(nuevo);
-                if(root.getCaracteristicaAdded()) {
-                    stackCaracteristicas.pop();
-                }
             } else if (stackCaracteristicas.contains(root.getData().getCaracteristica())) {
                 stackCaracteristicas.pop();
             }
@@ -343,6 +338,54 @@ public class Tree implements TreeInterface {
         }
         System.out.println("HashMap almacenado correctamente");
         return hashMap;
+    }
+
+    public NodeTree getPivote(NodeTree node){
+        if(base!=null){
+            return getPivoteRecursive(base, node);
+        }
+        return null;
+    }
+
+    public NodeTree searchPivote(NodeTree node, NodeTree target){
+        if(node.hasLeft()){
+            if(node.getLeft().getData().equals(target.getData()))  {
+                return node;
+            }
+
+        }
+        if(node.hasRight()){
+            if(node.getRight().getData().equals(target.getData())){
+                return node;
+            }
+        }
+
+        return null;
+    }
+
+    public NodeTree getPivoteRecursive(NodeTree actual, NodeTree target){
+        if(actual!=null){
+            NodeTree rleft;
+            NodeTree rright;
+            NodeTree resul = searchPivote(actual, target);
+            if (resul == null) {
+                rleft = getPivoteRecursive(actual.getLeft(), target);
+                rright = getPivoteRecursive(actual.getRight(), target);
+            } else {
+                return resul;
+            }
+            if(rleft==null && rright==null) {
+                return null;
+            }else{
+                if(rleft!=null){ //vemos si es el left
+                    return rleft;
+                }else{ //es el derecho
+                    return rright;
+                }
+            }//else de que si encontro algo
+        }   return null;
+
+
     }
 
 
@@ -387,6 +430,8 @@ public class Tree implements TreeInterface {
 
         // Registrar el adaptador para ListInterface<String> usando ContenedorAdapter
         //gsonBuilder.registerTypeAdapter(new TypeToken<ListInterface<String>>(){}.getType(), new ContenedorAdapter<String>());
+        // Configura el GsonBuilder para serializar solo los campos con @Expose
+        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
 
         // Crear el objeto Gson con el adaptador registrado
         Gson gson = gsonBuilder.create();

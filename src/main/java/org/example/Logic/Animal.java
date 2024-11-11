@@ -1,5 +1,6 @@
 package org.example.Logic;
 
+import com.google.gson.annotations.Expose;
 import org.example.Logic.DataStructures.Contenedor;
 import org.example.Logic.DataStructures.ListInterface;
 import org.example.Logic.DataStructures.NodeList;
@@ -7,9 +8,13 @@ import org.example.Logic.DataStructures.NodeList;
 import java.io.Serializable;
 
 public class Animal implements Serializable {
+    @Expose
     private String nombre;
+    @Expose
     private String caracteristica;
+    @Expose
     private boolean isAnimal;
+    @Expose
     private int nivel;
     private ListInterface<String> listaCaracteristicas;
 

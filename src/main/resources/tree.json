@@ -78,7 +78,6 @@
           },
           "caracteristicaAdded": true
         }
-
       },
       "right": {
         "data": {
@@ -123,8 +122,6 @@
           "caracteristicaAdded": true
         }
       }
-
-
     },
     "right": {
       "data": {
@@ -138,11 +135,96 @@
   },
   "right": {
     "data": {
-      "nombre": "aguila",
-      "caracteristica": "ave",
-      "isAnimal": true,
+      "nombre": "",
+      "caracteristica": "Cacarea",
+      "isAnimal": false,
       "nivel": 2
     },
-    "caracteristicaAdded": true
+    "left": {
+      "data": {
+        "nombre": "",
+        "caracteristica": "Canta",
+        "isAnimal": false,
+        "nivel": 3
+      },
+      "left": {
+        "data": {
+          "nombre": "aguila",
+          "caracteristica": "ave",
+          "isAnimal": true,
+          "nivel": 4
+        },
+        "caracteristicaAdded": true
+      },
+      "right": {
+        "data": {
+          "nombre": "",
+          "caracteristica": "Pica",
+          "isAnimal": false,
+          "nivel": 4
+        },
+        "left": {
+          "data": {
+            "nombre": "",
+            "caracteristica": "Slime Volador",
+            "isAnimal": false,
+            "nivel": 5
+          },
+          "left": {
+            "data": {
+              "nombre": "",
+              "caracteristica": "Rosa",
+              "isAnimal": false,
+              "nivel": 6
+            },
+            "left": {
+              "data": {
+                "nombre": "Loro",
+                "caracteristica": "Canta",
+                "isAnimal": true,
+                "nivel": 7
+              },
+              "caracteristicaAdded": true
+            },
+            "right": {
+              "data": {
+                "nombre": "Sidney",
+                "caracteristica": "Rosa",
+                "isAnimal": true,
+                "nivel": 7
+              },
+              "caracteristicaAdded": true
+            }
+          },
+          "right": {
+            "data": {
+              "nombre": "Mitico",
+              "caracteristica": "Slime Volador",
+              "isAnimal": true,
+              "nivel": 6
+            },
+            "caracteristicaAdded": true
+          }
+        },
+        "right": {
+          "data": {
+            "nombre": "Perico",
+            "caracteristica": "Pica",
+            "isAnimal": true,
+            "nivel": 5
+          },
+          "caracteristicaAdded": true
+        }
+      }
+    },
+    "right": {
+      "data": {
+        "nombre": "Gallina",
+        "caracteristica": "Cacarea",
+        "isAnimal": true,
+        "nivel": 3
+      },
+      "caracteristicaAdded": true
+    }
   }
 }

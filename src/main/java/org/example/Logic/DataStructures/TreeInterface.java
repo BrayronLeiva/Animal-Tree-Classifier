@@ -13,7 +13,7 @@ public interface TreeInterface {
     void printTreeFormat();
     boolean isEmpty();
     void play();
-    void playRecursive(NodeTree root, NodeTree parent, int nivel);
+    void playRecursive(NodeTree root, int nivel);
 
     Contenedor<Animal> convertTreeIntoList();
 
