@@ -1,12 +1,15 @@
 package org.example.Logic;
 
+import org.example.Data.Datos;
 import org.example.Logic.DataStructures.ListInterface;
 import org.example.Logic.DataStructures.Tree;
 import org.example.Logic.DataStructures.TreeInterface;
 import org.example.Presentation.MenuGUI;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
+import java.text.Normalizer;
 import java.util.Map;
 
 public class MundoAnimales {
@@ -14,22 +17,18 @@ public class MundoAnimales {
     private Map<String, ListInterface<String>> hashMap;
     private ListInterface<Animal> animalContenedor;
     private TreeInterface tree;
+    private Datos manager;
 
     public MundoAnimales() {
-        // Configurar el estilo de los cuadros de diálogo
-        UIManager.put("OptionPane.background", new Color(245, 245, 245)); // Gris claro
-        UIManager.put("Panel.background", new Color(245, 245, 245)); // Gris claro
-        UIManager.put("OptionPane.messageForeground", new Color(60, 60, 60)); // Gris oscuro
-        UIManager.put("Button.background", new Color(102, 153, 173)); // Verde suave
-        UIManager.put("Button.foreground", Color.WHITE); // Texto en blanco
-        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 14));
-
+        manager = new Datos();
+        tree = new Tree();
+        this.personalizarVista();
 
     }
 
     public void ejecutarJuego() {
-        tree = new Tree();
-        if (!tree.loadTree()) {
+
+        if (!manager.cargarDatos(tree)) {
             return;
         }
         tree.inorder();
@@ -70,6 +69,7 @@ public class MundoAnimales {
             JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras y espacios.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             nombreAnimal = nombreAnimal.toLowerCase();
+            nombreAnimal = this.quitarTildes(nombreAnimal);
             System.out.println("Animal digitado: " + nombreAnimal);
             if (hashMap.containsKey(nombreAnimal)) {
                 JOptionPane.showMessageDialog(null, nombreAnimal + ": " + hashMap.get(nombreAnimal).getStreamListCaracteristicas());
@@ -80,11 +80,29 @@ public class MundoAnimales {
         }
     }
 
+    public void personalizarVista(){
+        // Configurar el estilo de los cuadros de diálogo
+        UIManager.put("OptionPane.background", new Color(245, 245, 245)); // Gris claro
+        UIManager.put("Panel.background", new Color(245, 245, 245)); // Gris claro
+        UIManager.put("OptionPane.messageForeground", new Color(60, 60, 60)); // Gris oscuro
+        UIManager.put("Button.background", new Color(102, 153, 173)); // Verde suave
+        UIManager.put("Button.foreground", Color.WHITE); // Texto en blanco
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 14));
+    }
+
+    public String quitarTildes(String texto) {
+        // Normalizar el texto para separar caracteres con tildes en base + tilde
+        String textoNormalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        // Eliminar únicamente las tildes de las vocales
+        textoNormalizado = textoNormalizado.replaceAll("[\\p{M}&&[\\u0301]]", "");
+        return textoNormalizado;
+    }
+
     public void salir() {
         int save = JOptionPane.showConfirmDialog(null,
                 "¿Quieres salvar el árbol?", "Pregunta", JOptionPane.YES_NO_OPTION);
         if (save == JOptionPane.YES_NO_OPTION) {
-            tree.guardarArbol();
+            manager.guardarDatos(tree);
         }
         JOptionPane.showMessageDialog(null, "¡Hasta luego!");
     }
@@ -93,27 +111,4 @@ public class MundoAnimales {
 
 
 
-/*
-        animalContenedor = new Contenedor<Animal>();
-        Animal a = new Animal("12","12",true, 12);
-        Animal a1 = new Animal("9","9",true, 9);
-        Animal a2 = new Animal("18","18",true, 18);
-        Animal a3 = new Animal("8","8",true, 8);
-        Animal a4 = new Animal("24","24",true, 24);
-        Animal a5 = new Animal("15","15",true, 15);
-        Animal a6 = new Animal("10","10",true, 10);
-        Animal a7 = new Animal("20","20",true, 20);
-        animalContenedor.addEnd(a);
-        animalContenedor.addEnd(a1);
-        animalContenedor.addEnd(a2);
-        animalContenedor.addEnd(a3);
-        animalContenedor.addEnd(a4);
-        animalContenedor.addEnd(a5);
-        animalContenedor.addEnd(a6);
-        animalContenedor.addEnd(a7);
-        //animalContenedor.printList();
-        animalContenedor.quickSort();
 
-
-        animalContenedor.printList();
-*/

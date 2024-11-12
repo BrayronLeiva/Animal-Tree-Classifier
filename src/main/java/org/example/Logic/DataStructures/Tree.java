@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -239,9 +240,6 @@ public class Tree implements TreeInterface {
 
     }
 
-    public boolean loadTree(){
-        return loadTreeFromJson();
-    }
 
     @Override
     public void inorder() {
@@ -331,6 +329,7 @@ public class Tree implements TreeInterface {
             NodeList<Animal> aux = contenedorAnimales.getDummy().getNext();
             while (aux!=contenedorAnimales.getBack()) {
                 String key = aux.getData().getNombre().toLowerCase();
+                key = this.quitarTildes(key);
                 System.out.println("Key: " + key);
                 hashMap.put(key, aux.getData().getListaCaracteristicas());
                 aux = aux.getNext();
@@ -404,7 +403,8 @@ public class Tree implements TreeInterface {
         return "NULL";
     }
 
-    public boolean loadTreeFromJson() {
+    @Override
+    public boolean loadTree(String path){
         GsonBuilder gsonBuilder = new GsonBuilder();
 
         // Registrar el adaptador para ListInterface<String> usando ContenedorAdapter
@@ -412,9 +412,10 @@ public class Tree implements TreeInterface {
 
         Gson gson = gsonBuilder.create(); // Crea el objeto Gson con el registrador
 
-        try (FileReader reader = new FileReader("src/main/resources/tree.json")) {
+        try (FileReader reader = new FileReader(path)) {
             // Convertir el JSON en el nodo raíz del árbol
             base = gson.fromJson(reader, NodeTree.class);
+            this.showMessage("El arbol se a cargado desde " + path);
             return true;
         } catch (IOException | JsonSyntaxException e) {
             showMessage("No se encontró el archivo");
@@ -424,7 +425,9 @@ public class Tree implements TreeInterface {
     }
 
     // Método para guardar el árbol como JSON usando Gson
-    public void saveTreeAsJSON(String filePath) {
+
+    @Override
+    public void guardarArbol(String path) {
         // Crear un GsonBuilder y registrar el adaptador para ListInterface
         GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 
@@ -436,19 +439,22 @@ public class Tree implements TreeInterface {
         // Crear el objeto Gson con el adaptador registrado
         Gson gson = gsonBuilder.create();
 
-        try (FileWriter writer = new FileWriter(filePath)) {
+        try (FileWriter writer = new FileWriter(path)) {
             // Serializamos el nodo base (raíz) y sus nodos hijos automáticamente
             gson.toJson(base, writer);
-            System.out.println("El árbol se ha guardado en " + filePath);
+            System.out.println("El árbol se ha guardado en " + path);
+            this.showMessage("El árbol se ha guardado en " + path);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-    @Override
-    public void guardarArbol() {
-        saveTreeAsJSON("src/main/resources/tree.json");
+    public String quitarTildes(String texto) {
+        // Normalizar el texto para separar caracteres con tildes en base + tilde
+        String textoNormalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        // Eliminar únicamente las tildes de las vocales
+        textoNormalizado = textoNormalizado.replaceAll("[\\p{M}&&[\\u0301]]", "");
+        return textoNormalizado;
     }
     @Override
     public void cleanTree() {

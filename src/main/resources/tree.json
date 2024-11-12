@@ -71,14 +71,13 @@
         },
         "right": {
           "data": {
-            "nombre": "beta",
+            "nombre": "Beta",
             "caracteristica": "pez",
             "isAnimal": true,
             "nivel": 5
           },
           "caracteristicaAdded": true
         }
-
       },
       "right": {
         "data": {
@@ -90,7 +89,7 @@
         "left": {
           "data": {
             "nombre": "1",
-            "caracteristica": "maulla",
+            "caracteristica": "maúlla",
             "isAnimal": false,
             "nivel": 5
           },
@@ -116,15 +115,13 @@
         "right": {
           "data": {
             "nombre": "Ballena",
-            "caracteristica": "acuatico",
+            "caracteristica": "acuático",
             "isAnimal": true,
             "nivel": 5
           },
           "caracteristicaAdded": true
         }
       }
-
-
     },
     "right": {
       "data": {
@@ -138,7 +135,7 @@
   },
   "right": {
     "data": {
-      "nombre": "aguila",
+      "nombre": "Águila",
       "caracteristica": "ave",
       "isAnimal": true,
       "nivel": 2

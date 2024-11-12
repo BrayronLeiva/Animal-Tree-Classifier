@@ -1,5 +1,15 @@
 package org.example.Data;
 
+import org.example.Logic.DataStructures.Tree;
+import org.example.Logic.DataStructures.TreeInterface;
+
 public class Datos {
-    //ESTA CLASE SE IBA A ELIMINAR PERO POR RAZONES DE QUE EL IDE INDICA QUE ES RIESGOSO NO SE HIZO
+    public Datos() {
+    }
+    public boolean cargarDatos(TreeInterface tree){
+        return tree.loadTree("src/main/resources/tree.json");
+    }
+    public void guardarDatos(TreeInterface tree){
+        tree.guardarArbol("src/main/resources/tree.json");
+    }
 }
