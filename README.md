@@ -60,7 +60,7 @@ proyectoEstructurasDatos/
 ## 🧪 Example
 
 
-![example](diagrams/ER.png)
+![example](example.png)
 
 yaml
 Copiar
