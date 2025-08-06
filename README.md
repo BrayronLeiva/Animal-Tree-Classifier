@@ -13,7 +13,17 @@ Each **leaf node** in the tree represents a specific animal, and each **internal
 
 Additionally, the application includes a **stack-based trace** of the path taken to identify an animal (i.e., the set of characteristics that describe it).
 
----
+# Skills
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Recursion](https://img.shields.io/badge/Concept-Recursion-FF9800?style=for-the-badge)
+![Sorting](https://img.shields.io/badge/Concept-Sorting-4CAF50?style=for-the-badge)
+![Quick Sort](https://img.shields.io/badge/Algorithm-QuickSort-8BC34A?style=for-the-badge)
+![DFS](https://img.shields.io/badge/Algorithm-DFS-3F51B5?style=for-the-badge)
+![Data Structures](https://img.shields.io/badge/Topic-Data%20Structures-9C27B0?style=for-the-badge)
+![Trees](https://img.shields.io/badge/Structure-Trees-6A1B9A?style=for-the-badge)
+![Stacks](https://img.shields.io/badge/Structure-Stacks-FF5722?style=for-the-badge)
+![Linked Lists](https://img.shields.io/badge/Structure-Linked%20Lists-03A9F4?style=for-the-badge)
+
 
 ## 🧠 Concepts Applied
 
@@ -62,9 +72,6 @@ proyectoEstructurasDatos/
 
 ![example](example.png)
 
-yaml
-Copiar
-Editar
 
 ---
 
