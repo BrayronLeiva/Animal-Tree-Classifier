@@ -59,12 +59,8 @@ proyectoEstructurasDatos/
 
 ## 🧪 Example
 
-Does it have feathers? (yes/no)
 
-yes
-Does it fly?
-no
-It's a Penguin!
+![example](diagrams/ER.png)
 
 yaml
 Copiar
