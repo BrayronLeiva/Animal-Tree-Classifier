@@ -50,20 +50,7 @@ Additionally, the application includes a **stack-based trace** of the path taken
 
 ---
 
-## 📁 Folder Structure
-```
-proyectoEstructurasDatos/
-├── src/
-│ ├── arbol/
-│ │ ├── Arbol.java # Binary tree implementation
-│ │ ├── Nodo.java # Node class for tree structure
-│ ├── pila/
-│ │ ├── Pila.java # Stack implementation
-│ │ ├── NodoPila.java # Node for the stack
-│ ├── Principal.java # Main application logic
-├── animales.txt # File to persist the tree structure
 
-```
 
 
 
